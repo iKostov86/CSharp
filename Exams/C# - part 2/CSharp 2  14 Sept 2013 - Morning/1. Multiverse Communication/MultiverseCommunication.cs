@@ -4,16 +4,10 @@ class MultiverseCommunication
 {
     static void Main()
     {
-        //string input = string.Empty;
         string input = Console.ReadLine();
 
-        //while ((input.Length / 3) > 9 || (input.Length / 3) < 1)
-        //{
-        //    input = Console.ReadLine();
-        //}
-
-        int number = new int();
-        int multi = (int)Math.Pow(13.0, (input.Length / 3) - 1);
+        long number = new int();
+        long multi = (long)Math.Pow(13.0, (input.Length / 3) - 1);
 
         for (int i = 0; i < input.Length; i += 3)
         {
