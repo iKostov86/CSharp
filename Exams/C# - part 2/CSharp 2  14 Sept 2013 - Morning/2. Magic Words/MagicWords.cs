@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 class MagicWords
 {
@@ -6,11 +9,11 @@ class MagicWords
     {
         int n = int.Parse(Console.ReadLine());
         int maxLen = new int();
-        string[] words = new string[n];
+        List<string> words = new List<string>();
         
         for (int i = 0; i < n; i++)
         {
-            words[i] = Console.ReadLine();
+            words.Add(Console.ReadLine());
 
             if (words[i].Length > maxLen)
             {
@@ -20,36 +23,38 @@ class MagicWords
 
         for (int i = 0; i < n; i++)
         {
-            int position = words[i].Length % (n + 1);
-            string temp = words[i];
+            int newPosition = words[i].Length % (n + 1);
 
-            if (position <= 0)
+            words.Insert(newPosition, words[i]);
+
+            if (newPosition < i)
             {
-                position = 0;
+                words.RemoveAt(i + 1);
             }
             else
             {
-                position--;
+                words.RemoveAt(i);
             }
-
-            words[i] = words[position];
-            words[position] = temp;
         }
 
         Print (words, maxLen);
     }
 
-    public static void Print (string[] words, int maxLen)
+    public static void Print (List<string> words, int maxLen)
     {
+        StringBuilder sb = new StringBuilder();
+
         for (int i = 0; i < maxLen; i++)
         {
-            for (int j = words.Length - 1; j >= 0 ; j--)
+            for (int j = 0; j < words.Count ; j++)
             {
-                if (words[j].Length >= i)
+                if (words[j].Length > i)
                 {
-                    Console.WriteLine(words[j][i]);
+                    sb.Append(words[j][i]);
                 }
             }
         }
+
+        Console.WriteLine(sb);
     }
 }
