@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1. Multiverse Communication", "1. Multiverse Communication\1. Multiverse Communication.csproj", "{B2468FD2-E9D9-4929-B0CC-CFD09B9E8D0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2. Magic Words", "2. Magic Words\2. Magic Words.csproj", "{538AC1D5-F8D0-46E8-AEE7-E21FF416444D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2468FD2-E9D9-4929-B0CC-CFD09B9E8D0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2468FD2-E9D9-4929-B0CC-CFD09B9E8D0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2468FD2-E9D9-4929-B0CC-CFD09B9E8D0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2468FD2-E9D9-4929-B0CC-CFD09B9E8D0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{538AC1D5-F8D0-46E8-AEE7-E21FF416444D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{538AC1D5-F8D0-46E8-AEE7-E21FF416444D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{538AC1D5-F8D0-46E8-AEE7-E21FF416444D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{538AC1D5-F8D0-46E8-AEE7-E21FF416444D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
