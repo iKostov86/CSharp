@@ -59,25 +59,30 @@ class Tron3D
         while (true)
         {
             #region MoveRed
-            while (redIndex < redMoves.Length && redMoves[redIndex] != 'M')
+            if (redMoves.Length != 0)
             {
-                CalculationDirection(ref redMoves, ref directionRed, ref redIndex);
+                while (redIndex < redMoves.Length && redMoves[redIndex] != 'M')
+                {
+                    CalculationDirection(ref redMoves, ref directionRed, ref redIndex);
+                    redIndex++;
+                }
+
+                MovePlayer(ref currentRedX, ref currentRedY, directionRed);
                 redIndex++;
             }
-
-            MovePlayer(ref currentRedX, ref currentRedY, directionRed);
-            redIndex++;
             #endregion
 
             #region MoveBlue
-            while (blueIndex < blueMoves.Length && blueMoves[blueIndex] != 'M')
+            if (blueMoves.Length != 0)
             {
-                CalculationDirection(ref blueMoves, ref directionBlue, ref blueIndex);
+                while (blueIndex < blueMoves.Length && blueMoves[blueIndex] != 'M')
+                {
+                    CalculationDirection(ref blueMoves, ref directionBlue, ref blueIndex);
+                    blueIndex++;
+                }
+                MovePlayer(ref currentBlueX, ref currentBlueY, directionBlue);
                 blueIndex++;
             }
-
-            MovePlayer(ref currentBlueX, ref currentBlueY, directionBlue);
-            blueIndex++;
             #endregion
 
             #region Loses
@@ -87,16 +92,19 @@ class Tron3D
             if (redLoses && blueLoses)
             {
                 Console.WriteLine("DRAW");
+                StartEndDistance(-1);
                 break;
             }
             else if (redLoses)
             {
                 Console.WriteLine("BLUE");
+                StartEndDistance(0);
                 break;
             }
             else if (blueLoses)
             {
                 Console.WriteLine("RED");
+                StartEndDistance(0);
                 break;
             }
             #endregion
@@ -158,11 +166,20 @@ class Tron3D
 
     public static bool Loses(int currentX, int currentY)
     {
-        if (used[currentX, currentY] || currentX < 0 || currentX > newX)
+        if (currentX < 0 || currentX > newX || used[currentX, currentY])
         {
             return true;
         }
 
         return false;
+    }
+
+    public static void StartEndDistance(int coefficient)
+    {
+        int distanceX = Math.Abs((initialX / 2) - currentRedX);
+        int distanceY1 = newY - (initialY / 2) + currentRedY;
+        int distanceY2 = Math.Abs((initialY / 2) - currentRedY);
+
+        Console.WriteLine(distanceX + Math.Min(distanceY1, distanceY2) + coefficient);
     }
 }
