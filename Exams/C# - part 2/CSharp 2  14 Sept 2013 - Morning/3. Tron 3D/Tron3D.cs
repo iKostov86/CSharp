@@ -19,20 +19,38 @@ class Tron3D
 
     static void Main()
     {
+        DateTime dateOne = DateTime.Now;
         ReadInput();
         InitializingGame();
         StartGame();
+        //Console.WriteLine(DateTime.Now - dateOne);
     }
 
     public static void ReadInput()
     {
+        StringBuilder sb = new StringBuilder();
+        int strIndex = 0;
+
         string[] xyzAsStr = Console.ReadLine().Split(' ');
         initialX = int.Parse(xyzAsStr[0]);
         initialY = int.Parse(xyzAsStr[1]);
-        initialZ = int.Parse(xyzAsStr[2]);
+        //initialZ = int.Parse(xyzAsStr[2]);
 
-        redMoves = Console.ReadLine();
-        blueMoves = Console.ReadLine();
+        while (!Char.IsLetter(xyzAsStr[2], strIndex))
+        {
+            sb.Append(xyzAsStr[2][strIndex]);
+            strIndex++;
+        }
+
+        initialZ = int.Parse(sb.ToString());
+        sb.Remove(0, sb.Length);
+
+        sb.Append(xyzAsStr[2].Substring(strIndex, xyzAsStr[2].Length - strIndex));
+
+        //redMoves = Console.ReadLine();
+        //blueMoves = Console.ReadLine();
+        redMoves = sb.ToString().Substring(0, sb.Length / 2);
+        blueMoves = sb.ToString().Substring((sb.Length / 2), (sb.Length / 2));
     }
 
     public static void InitializingGame()
@@ -91,20 +109,34 @@ class Tron3D
 
             if (redLoses && blueLoses)
             {
-                Console.WriteLine("DRAW");
+                Console.Write("DRAW");
                 StartEndDistance(-1);
                 break;
             }
             else if (redLoses)
             {
-                Console.WriteLine("BLUE");
-                StartEndDistance(0);
+                Console.Write("BLUE");
+                if (currentRedX == 0 || currentRedX == initialX)
+                {
+                    StartEndDistance(-1);
+                }
+                else
+                {
+                    StartEndDistance(0);
+                }
                 break;
             }
             else if (blueLoses)
             {
-                Console.WriteLine("RED");
-                StartEndDistance(0);
+                Console.Write("RED");
+                if (currentBlueX == 0 || currentBlueX == initialX)
+                {
+                    StartEndDistance(-1);
+                }
+                else
+                {
+                    StartEndDistance(0);
+                }
                 break;
             }
             #endregion
@@ -180,6 +212,6 @@ class Tron3D
         int distanceY1 = newY - (initialY / 2) + currentRedY;
         int distanceY2 = Math.Abs((initialY / 2) - currentRedY);
 
-        Console.WriteLine(distanceX + Math.Min(distanceY1, distanceY2) + coefficient);
+        Console.Write(distanceX + Math.Min(distanceY1, distanceY2) + coefficient);
     }
 }
