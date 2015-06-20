@@ -39,56 +39,16 @@ class DecodeAndDecrypt
 
     public static string Decrypt(string encryptedMsg, string cypher, int cypherLength)
     {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(encryptedMsg);
 
-        // Aligning encrypted message and cypher length
-        if (encryptedMsg.Length > cypherLength)
+        int longest = Math.Max(encryptedMsg.Length, cypherLength);
+
+        for (int i = 0; i < longest; i++)
         {
-            sb.Append(cypher);
-
-            for (int i = cypherLength, j = 0; i < encryptedMsg.Length; i++, j++)
-            {
-                if (j == cypherLength - 1)
-                {
-                    j = 0;
-                }
-
-                sb.Append(cypher[j]);
-            }
-
-            cypher = sb.ToString();
-        }
-        else if (encryptedMsg.Length < cypherLength)
-        {
-            sb.Append(encryptedMsg);
-
-            for (int i = encryptedMsg.Length, j = 0; i < cypherLength; i++, j++)
-            {
-                if (j == encryptedMsg.Length)
-                {
-                    j = 0;
-                }
-
-                sb.Append(encryptedMsg[j]);
-            }
-
-            encryptedMsg = sb.ToString();
+            sb[i % encryptedMsg.Length] = (char)(((sb[i % encryptedMsg.Length] - 'A') ^ (cypher[i % cypherLength] - 'A')) + 'A');
         }
 
-        sb.Clear();
-
-        // Decode message
-
-        for (int i = 0; i < cypherLength; i++)
-        {
-            var result1 = encryptedMsg[i] ^ cypher[i];
-            var result = (char)result1;
-            sb.Append(result);
-        }
-
-
-
-        return sb.ToString() + 65;
+        return sb.ToString();
     }
 
     public static string Decode(string encodedMsg)
