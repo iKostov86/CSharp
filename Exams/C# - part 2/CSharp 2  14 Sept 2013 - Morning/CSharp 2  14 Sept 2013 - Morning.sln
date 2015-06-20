@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3. Tron 3D", "3. Tron 3D\3.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4. Decode and Decrypt", "4. Decode and Decrypt\4. Decode and Decrypt.csproj", "{82EF9F9B-5E29-46D1-8740-653B71A4974E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "5. Featuring with Grisko", "5. Featuring with Grisko\5. Featuring with Grisko.csproj", "{1AB6ADA8-6733-4E05-BB80-B9907FE385A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{82EF9F9B-5E29-46D1-8740-653B71A4974E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82EF9F9B-5E29-46D1-8740-653B71A4974E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82EF9F9B-5E29-46D1-8740-653B71A4974E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AB6ADA8-6733-4E05-BB80-B9907FE385A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AB6ADA8-6733-4E05-BB80-B9907FE385A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AB6ADA8-6733-4E05-BB80-B9907FE385A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AB6ADA8-6733-4E05-BB80-B9907FE385A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

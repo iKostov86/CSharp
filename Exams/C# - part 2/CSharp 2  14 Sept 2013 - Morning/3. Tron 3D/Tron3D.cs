@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class Tron3D
+public class Tron3D
 {
-    static int initialX, initialY, initialZ;
-    static int newX, newY;
-    static string redMoves, blueMoves;
-    static bool[,] used;
-    static int currentRedX;
-    static int currentRedY;
-    static int currentBlueX;
-    static int currentBlueY;
-    static int directionRed;
-    static int directionBlue;
+    private static int initialX, initialY, initialZ;
+    private static int newX, newY;
+    private static string redMoves, blueMoves;
+    private static bool[,] used;
+    private static int currentRedX;
+    private static int currentRedY;
+    private static int currentBlueX;
+    private static int currentBlueY;
+    private static int directionRed;
+    private static int directionBlue;
 
     static void Main()
     {
@@ -23,7 +23,7 @@ class Tron3D
         ReadInput();
         InitializingGame();
         StartGame();
-        //Console.WriteLine(DateTime.Now - dateOne);
+        ////Console.WriteLine(DateTime.Now - dateOne);
     }
 
     public static void ReadInput()
@@ -34,9 +34,9 @@ class Tron3D
         string[] xyzAsStr = Console.ReadLine().Split(' ');
         initialX = int.Parse(xyzAsStr[0]);
         initialY = int.Parse(xyzAsStr[1]);
-        //initialZ = int.Parse(xyzAsStr[2]);
+        ////initialZ = int.Parse(xyzAsStr[2]);
 
-        while (!Char.IsLetter(xyzAsStr[2], strIndex))
+        while (!char.IsLetter(xyzAsStr[2], strIndex))
         {
             sb.Append(xyzAsStr[2][strIndex]);
             strIndex++;
@@ -47,10 +47,10 @@ class Tron3D
 
         sb.Append(xyzAsStr[2].Substring(strIndex, xyzAsStr[2].Length - strIndex));
 
-        //redMoves = Console.ReadLine();
-        //blueMoves = Console.ReadLine();
+        ////redMoves = Console.ReadLine();
+        ////blueMoves = Console.ReadLine();
         redMoves = sb.ToString().Substring(0, sb.Length / 2);
-        blueMoves = sb.ToString().Substring((sb.Length / 2), (sb.Length / 2));
+        blueMoves = sb.ToString().Substring(sb.Length / 2, sb.Length / 2);
     }
 
     public static void InitializingGame()
@@ -98,6 +98,7 @@ class Tron3D
                     CalculationDirection(ref blueMoves, ref directionBlue, ref blueIndex);
                     blueIndex++;
                 }
+
                 MovePlayer(ref currentBlueX, ref currentBlueY, directionBlue);
                 blueIndex++;
             }
@@ -124,6 +125,7 @@ class Tron3D
                 {
                     StartEndDistance(0);
                 }
+
                 break;
             }
             else if (blueLoses)
@@ -137,6 +139,7 @@ class Tron3D
                 {
                     StartEndDistance(0);
                 }
+
                 break;
             }
             #endregion

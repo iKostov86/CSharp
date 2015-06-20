@@ -1,6 +1,6 @@
 ﻿using System;
 
-class MultiverseCommunication
+public class MultiverseCommunication
 {
     static void Main()
     {

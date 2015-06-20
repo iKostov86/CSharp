@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class DecodeAndDecrypt
+public class DecodeAndDecrypt
 {
     static void Main()
     {
@@ -60,7 +60,7 @@ class DecodeAndDecrypt
         {
             if (char.IsDigit(encodedMsg[i]))
             {
-                count = count * 10 + int.Parse(encodedMsg[i].ToString());
+                count = (count * 10) + int.Parse(encodedMsg[i].ToString());
             }
             else if (count == 0)
             {

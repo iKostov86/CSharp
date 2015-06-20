@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-class MagicWords
+public class MagicWords
 {
     static void Main()
     {
@@ -37,16 +37,16 @@ class MagicWords
             }
         }
 
-        Print (words, maxLen);
+        Print(words, maxLen);
     }
 
-    public static void Print (List<string> words, int maxLen)
+    public static void Print(List<string> words, int maxLen)
     {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < maxLen; i++)
         {
-            for (int j = 0; j < words.Count ; j++)
+            for (int j = 0; j < words.Count; j++)
             {
                 if (words[j].Length > i)
                 {
