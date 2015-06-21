@@ -13,9 +13,11 @@ public class FeaturingWithGrisko
 
         for (int i = 0; i < input.Length; i++)
         {
+            arr[i] += input[i];
+
             for (int j = i + 1; j < input.Length; j++)
             {
-                
+                arr[i] += input[j];
             }
         }
     }
@@ -30,5 +32,18 @@ public class FeaturingWithGrisko
             i++;
         }
         return fact;
+    }
+
+    public static bool IsCorrect(string word)
+    {
+        for (int i = 1; i < word.Length; i++)
+        {
+            if (word[i] == word[i - 1])
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
