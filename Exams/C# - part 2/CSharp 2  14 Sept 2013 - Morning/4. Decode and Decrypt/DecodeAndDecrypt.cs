@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 public class DecodeAndDecrypt
 {
@@ -41,7 +38,16 @@ public class DecodeAndDecrypt
     {
         StringBuilder sb = new StringBuilder(encryptedMsg);
 
-        int longest = Math.Max(encryptedMsg.Length, cypherLength);
+        int longest;
+
+        if(encryptedMsg.Length > cypherLength)
+        {
+            longest = encryptedMsg.Length;
+        }
+        else
+        {
+            longest = cypherLength;
+        }
 
         for (int i = 0; i < longest; i++)
         {
