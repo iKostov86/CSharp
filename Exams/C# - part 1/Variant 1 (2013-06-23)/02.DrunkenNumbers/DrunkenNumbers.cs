@@ -1,51 +1,57 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 class DrunkenNumbers
 {
     static void Main()
     {
-        Console.WriteLine("Enter a number of rounds: ");
         int numbersOfRounds = int.Parse(Console.ReadLine());
-        Console.Clear();
 
-        int firstPlayer = 0;
-        int secondPlayer = 0;
+        int vladko = 0;
+
+        int mitko = 0;
 
         for (int n = 0; n < numbersOfRounds; n++)
         {
-            Console.WriteLine("Enter a drunken number: ");
-            string temp = Console.ReadLine();
-            Console.Clear();
+            int givenNum = int.Parse(Console.ReadLine());
 
-            for (int i = 0; i < temp.Length / 2; i++)
+            if (givenNum < 0)
             {
-                firstPlayer += int.Parse(temp[i].ToString());
+                givenNum = -givenNum;
             }
 
-            for (int j = temp.Length - 1; j > temp.Length - (temp.Length / 2) - 1; j--)
-			{
-                secondPlayer += int.Parse(temp[j].ToString());
-			}
+            string givenNumAsStr = givenNum.ToString();
 
-            if ((temp.Length % 2) != 0)
+            int length = givenNumAsStr.Length;
+
+            for (int i = 0, j = length - 1; i < length / 2; i++, j--)
             {
-            //the number is odd
-                firstPlayer += int.Parse(temp[temp.Length / 2].ToString());
-                secondPlayer += int.Parse(temp[temp.Length / 2].ToString());
+                mitko += int.Parse(givenNumAsStr[i].ToString());
+                vladko += int.Parse(givenNumAsStr[j].ToString());
+            }
+
+            if (length % 2 != 0)
+            {
+                mitko += int.Parse(givenNumAsStr[length / 2].ToString());
+                vladko += int.Parse(givenNumAsStr[length / 2].ToString());
             }
         }
 
-        if (firstPlayer > secondPlayer)
+        PrintResult(vladko, mitko);
+    }
+
+    public static void PrintResult(int vladko, int mitko)
+    {
+        if (vladko > mitko)
         {
-            Console.WriteLine("Mitko - {0} beers.", firstPlayer);
+            Console.WriteLine("V {0}", vladko - mitko);
+        }
+        else if (mitko > vladko)
+        {
+            Console.WriteLine("M {0}", mitko - vladko);
         }
         else
         {
-            Console.WriteLine("Vlado - {0} beers.", secondPlayer);
+            Console.WriteLine("No {0}", vladko + mitko);
         }
     }
 }

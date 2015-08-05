@@ -8,13 +8,12 @@ class BullsAndCows
 {
     static void Main()
     {
-        DateTime firstTime = DateTime.Now;
+        string secretNumber = Console.ReadLine();
 
-        string secretNumber = "1234";
+        int bulls = int.Parse(Console.ReadLine());
+        int cows = int.Parse(Console.ReadLine());
 
-        int bulls = 3;
-        int cows = 0;
-        int count = 0;
+        List<string> listOfNums = new List<string>();
 
         //get guess number
         for (int i = 1; i <= 9; i++)
@@ -62,16 +61,20 @@ class BullsAndCows
                         //chek if temp results are the same like the given ones
                         if ((tempBulls == bulls) && (tempCows == cows))
                         {
-                            Console.Write("{0} ", guessNumber);
-                            count++;
+                            listOfNums.Add(guessNumber);
                         }
                     }
                 }
             }
         }
-        DateTime secondTime = DateTime.Now;
-        Console.WriteLine((secondTime - firstTime));
-        Console.WriteLine(count);
 
+        if (listOfNums.Count != 0)
+        {
+            Console.WriteLine(String.Join(" ", listOfNums));
+        }
+        else
+        {
+            Console.WriteLine("No");
+        }
     }
 }

@@ -1,119 +1,75 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 class NeuronMapping
 {
     static void Main()
     {
-        uint[] input = new uint[] { 480, 272, 224, 16252928, 50593792, 33685504, 67239936, 67174400, 33587200, 16809984, 16973824, 8650752, 7864320, 0 };
-        uint[] output = new uint[input.Length];
+        var input = new List<long>();
+        long currentLine = 0;
 
-        for (int i = 0; i < input.Length; i++)
+        while (long.TryParse(Console.ReadLine(), out currentLine) && currentLine != -1)
         {
-            byte[] inputBits = new byte[32];
-            int j = 0;
-
-            //convert int to binary
-            while (input[i] > 0)
-	        {
-                if ((input[i] & 1) == 1)
-                {
-                    inputBits[j] = 1;
-                }
-                else
-                {
-                    inputBits[j] = 0;
-                }
-                j++;
-                input[i] >>= 1;
-	        }
-
-            Array.Reverse(inputBits);
-
-            for (int m = 0; m < inputBits.Length; m++)
-            {
-                if (inputBits[m] == 0)
-                {
-                    Console.Write('.');
-                }
-                else
-                {
-                    Console.Write('1');
-                }
-            }
-
-            Console.Write(" ");
-
-            bool inImage = false;
-            byte[] outputBits = new byte[32];
-
-            int start = 0;
-            int end = 0;
-
-            //get start
-            for (int s = 0; s < inputBits.Length; s++)
-            {
-                if (inputBits[s] == 1)
-                {
-                    start = s;
-                    break;
-                }
-            }
-            //get end
-            for (int e = inputBits.Length - 1; e > -1; e--)
-            {
-                if (inputBits[e] == 1)
-                {
-                    end = e;
-                    break;
-                }
-            }
-
-
-            for (int k = start; k < end; k++)
-            {
-                if (inputBits[k] == 1)
-                {
-                    outputBits[k] = 0;
-                }
-                else
-                {
-                    outputBits[k] = 1;
-                }
-            }
-
-            for (int n = 0; n < outputBits.Length; n++)
-            {
-                if (outputBits[n] == 0)
-                {
-                    Console.Write('.');
-                }
-                else
-                {
-                    Console.Write('1');
-                }
-            }
-            Console.WriteLine();
-
-            //convert binary to int
-            Array.Reverse(outputBits);
-            uint outputTemp = 0;
-
-            for (int r = 0; r < 32; r++)
-            {
-                outputTemp += outputBits[r] * (uint)Math.Pow(2.0, (double)r);
-            }
-            output[i] = outputTemp;
+            input.Add(currentLine);
         }
 
-        //Console.WriteLine(input.Length);
-        //Console.WriteLine(output.Length);
-        foreach (var item in output)
+        var output = new long[input.Count];
+
+        for (int n = 0; n < input.Count; n++)
         {
-            Console.WriteLine(item);
+            bool inNeuron = false;
+            int mostRightIndex = -1;
+            int mostLeftIndex = -1;
+            output[n] = 0;
+
+            for (int p = 0; p < 32; p++)
+            {
+                long mask = 1 << p;
+                long bit = (input[n] & mask) >> p;
+
+                if (!inNeuron)
+                {
+                    if (bit == 1)
+                    {
+                        inNeuron = true;
+                    }
+                }
+                else //inNeuron
+                {
+                    if (bit == 0)
+                    {
+                        if (mostRightIndex == -1)
+                        {
+                            mostRightIndex = p;
+                        }
+                    }
+                    else //bit == 1
+                    {
+                        if (mostRightIndex != -1)
+                        {
+                            mostLeftIndex = p;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (mostLeftIndex != -1 && mostRightIndex != -1)
+            {
+                for (int p = mostRightIndex; p < mostLeftIndex; p++)
+                {
+                    long mask = 1u << p;
+                    long bit = (input[n] & mask) >> p;
+
+                    if (bit == 0)
+                    {
+                        output[n] = output[n] | mask;
+                    }
+                }
+            }
         }
+
+        Console.WriteLine(String.Join("\n", output));
     }
 }
+

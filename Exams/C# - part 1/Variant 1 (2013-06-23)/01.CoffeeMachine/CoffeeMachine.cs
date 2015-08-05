@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Globalization;
 using System.Threading;
 
@@ -24,7 +20,7 @@ class CoffeeMachine
         decimal change = developerMoney - drinkPrice;
         decimal moneyInMachine = n5 * 1m + n4 * 0.5m + n3 * 0.2m + n2 * 0.1m + n1 * 0.05m; ;
 
-        if (change < 0) 
+        if (change < 0)
         {
             Console.WriteLine("More {0}", -change);
         }
@@ -40,28 +36,28 @@ class CoffeeMachine
             }
         }
     }
-
-    //ChekCoins(ref n5, ref change, ref price, 1m);
-    //ChekCoins(ref n4, ref change, ref price, 0.5m);
-    //ChekCoins(ref n3, ref change, ref price, 0.2m);
-    //ChekCoins(ref n2, ref change, ref price, 0.1m);
-    //ChekCoins(ref n1, ref change, ref price, 0.05m);
-
-    static void ChekCoins(ref int n, ref decimal change, ref decimal price, decimal coin)
-    {
-        if (change >= coin)
-        {
-            int count = (int)(change / coin);
-            if (n >= count)
-            {
-                change -= count * coin;
-                n -= count;
-            }
-            else
-            {
-                change -= n * coin;
-                n = 0;
-            }
-        }
-    }
 }
+
+//ChekCoins(ref n5, ref change, ref price, 1m);
+//ChekCoins(ref n4, ref change, ref price, 0.5m);
+//ChekCoins(ref n3, ref change, ref price, 0.2m);
+//ChekCoins(ref n2, ref change, ref price, 0.1m);
+//ChekCoins(ref n1, ref change, ref price, 0.05m);
+
+//static void ChekCoins(ref int n, ref decimal change, ref decimal price, decimal coin)
+//{
+//    if (change >= coin)
+//    {
+//        int count = (int)(change / coin);
+//        if (n >= count)
+//        {
+//            change -= count * coin;
+//            n -= count;
+//        }
+//        else
+//        {
+//            change -= n * coin;
+//            n = 0;
+//        }
+//    }
+//}
