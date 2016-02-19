@@ -1,16 +1,37 @@
 ﻿using System;
 
-class IndexMultipliedBy5
+public class IndexMultipliedBy5
 {
-    static void Main()
+    internal static void Main()
     {
-        int multiplayer = int.Parse(Console.ReadLine());
-        int[] array = new int[20];
+        int multiplier = GetMultiplier();
+        int[] multipliedArray = GetMultipliedArray(new int[20], multiplier);
 
-        for (int i = 0; i < array.Length; i++)
+        PrintArray(multipliedArray);
+    }
+
+    public static int GetMultiplier()
+    {
+        Console.WriteLine("Please enter a multiplier: ");
+
+        return int.Parse(Console.ReadLine());
+    }
+
+    public static int[] GetMultipliedArray(int[] arr, int multiplier)
+    {
+        for (int i = 0; i < arr.Length; i++)
         {
-            array[i] = i * multiplayer;
-            Console.WriteLine("{0} ", array[i]);
+            arr[i] = i * multiplier;
+        }
+
+        return arr;
+    }
+
+    public static void PrintArray(int[] arr)
+    {
+        for (int i = 0; i < arr.Length; i++)
+        {
+            Console.WriteLine(arr[i]);
         }
     }
 }

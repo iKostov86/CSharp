@@ -1,41 +1,76 @@
 ﻿using System;
-using System.Collections.Generic;
 
 class CompareElementOfIntArray
 {
-    static void TheyArent()
-    {
-        Console.WriteLine("The arrays aren't the same.");
-    }
     static void Main()
     {
-        int n1 = int.Parse(Console.ReadLine());
-        int n2 = int.Parse(Console.ReadLine());
-        int[] arr1 = new int[n1];
-        int[] arr2 = new int[n2];
+        int firstLen = GetArrayDimension();
+        int secondLen = GetArrayDimension();
 
-        if (n1 != n2)
+        if (ValidateArraysDimensionEquality(firstLen, secondLen))
         {
-            TheyArent();
-            return;
+            int[] firstArr = getArray(firstLen);
+            int[] secondArr = getArray(secondLen);
+            bool result = GetArrayComparison(firstArr, secondArr);
+
+            PrintAccordingToComparison(result);
         }
-        for (int i = 0; i < arr1.Length; i++)
+    }
+
+    public static int GetArrayDimension()
+    {
+        Console.WriteLine("Enter an array length: ");
+        int len = int.Parse(Console.ReadLine());
+
+        return len;
+    }
+
+    public static int[] getArray(int len)
+    {
+        int[] arr = new int[len];
+
+        for (int i = 0; i < arr.Length; i++)
         {
-            arr1[i] = int.Parse(Console.ReadLine());
+            arr[i] = int.Parse(Console.ReadLine());
         }
-        for (int i = 0; i < arr2.Length; i++)
+
+        return arr;
+    }
+
+    public static bool GetArrayComparison(int[] firstArr, int[] secondArr)
+    {
+        for (int i = 0; i < firstArr.Length; i++)
         {
-            arr2[i] = int.Parse(Console.ReadLine());
-        }
-        for (int i = 0; i < arr1.Length; i++)
-        {
-            if (arr1[i] != arr2[i])
+            if (firstArr[i] != secondArr[i])
             {
-                TheyArent();
-                return;
+                return false;
             }
         }
-        Console.WriteLine("Yes, they are the same.");
+
+        return true;
+    }
+
+    public static bool ValidateArraysDimensionEquality(int firstLen, int secondLen)
+    {
+        if (firstLen != secondLen)
+        {
+            Console.WriteLine("The arrays can not be the same.");
+            return false;
+        }
+
+        return true;
+    }
+
+    public static void PrintAccordingToComparison(bool result)
+    {
+        if (result)
+        {
+            Console.WriteLine("The arrays are same.");
+        }
+        else
+        {
+            Console.WriteLine("The arrays are not equal.");
+        }
     }
 }
 
