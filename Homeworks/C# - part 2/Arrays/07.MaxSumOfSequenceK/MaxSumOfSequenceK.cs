@@ -1,41 +1,55 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 class MaxSumOfSequenceK
 {
     static void Main()
     {
-        int n = int.Parse(Console.ReadLine());
-        int k = int.Parse(Console.ReadLine());
-        int[] array = new int[n];
+        //int n = int.Parse(Console.ReadLine());
+        //int k = int.Parse(Console.ReadLine());
+        //int[] arr = new int[n];
+        int n = 10;
+        int k = 4;
+        int[] arr = new int[] { 2, 3, -6, -1, 2, -1, 6, 4, -8, 8 };
         int bestSum = 0;
         int bestIndex = 0;
 
-        for (int i = 0; i < n; i++)
-        {
-			array[i] = int.Parse(Console.ReadLine()); 
-        }
+        //FillArray(arr);
+
         for (int i = 0; i < n - k + 1; i++)
         {
-            int tempSum = 0;
-            int tempIndex = i;
+            int sum = 0;
+            int index = i;
             for (int j = i; j < i + k; j++)
             {
-                tempSum += array[j];
+                sum += arr[j];
             }
-            if (tempSum > bestSum)
+            if (sum > bestSum)
             {
-                bestSum = tempSum;
-                bestIndex = tempIndex;
+                bestSum = sum;
+                bestIndex = index;
             }
         }
-        for (int i = bestIndex; i < bestIndex + k; i++)
+
+        // input                                result
+        // 2, 3, -6, -1, 2, -1, 6, 4, -8, 8     2, -1, 6, 4
+        PrintSequence(arr, bestIndex, k);
+    }
+
+    public static void FillArray(int[] arr)
+    {
+        for (int i = 0, len = arr.Length; i < len; i++)
         {
-            Console.WriteLine(array[i]);
+            arr[i] = int.Parse(Console.ReadLine());
         }
+    }
+
+    public static void PrintSequence(int[] arr, int index, int k)
+    {
+        for (int i = index; i < index + k; i++)
+        {
+            Console.Write("{0} ", arr[i]);
+        }
+
+        Console.WriteLine();
     }
 }
