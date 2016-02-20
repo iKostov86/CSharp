@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.IndexMultipliedBy5", "01.IndexMultipliedBy5\01.IndexMultipliedBy5.csproj", "{8C228474-9DAE-49A0-9002-77984262AB36}"
 EndProject
@@ -12,8 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04.FindsTheMaximalSequence", "04.FindsTheMaximalSequence\04.FindsTheMaximalSequence.csproj", "{54829FC6-4DE1-4E62-954A-A984D48009B5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05.FindsTheMaximalIncreasingSequence", "05.FindsTheMaximalIncreasingSequence\05.FindsTheMaximalIncreasingSequence.csproj", "{FA1FF229-E7BD-4CF1-92D2-BB58399EE26A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06.FinedsTheMaximalInconsistentSequence", "06.FinedsTheMaximalInconsistentSequence\06.FinedsTheMaximalInconsistentSequence.csproj", "{A9960774-8C71-4B66-96BD-70FEB395913E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.MaxSumOfSequenceK", "07.MaxSumOfSequenceK\07.MaxSumOfSequenceK.csproj", "{21EC64C3-FE2D-47B6-AD99-E3CA716F9A9F}"
 EndProject
@@ -47,6 +45,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "21.CombinationsKOfN", "21.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20.VariationsKOfN", "20.VariationsKOfN\20.VariationsKOfN.csproj", "{39BACBD2-C68D-404A-9C0F-71A8F99650F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06.FindsTheMaximalConsistentSequence", "06.FindsTheMaximalConsistentSequence\06.FindsTheMaximalConsistentSequence.csproj", "{1B4050BB-F208-4F43-B6E4-7C0C9BB9EACE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06.FindsTheMaximalInconsistentSequence", "06.FindsTheMaximalInconsistentSequence\06.FindsTheMaximalInconsistentSequence.csproj", "{12049FC1-5C96-43CD-8112-212017339036}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06.FindsTheLongestNonDecreasingSubsequence", "06.FindsTheLongestNonDecreasingSubsequence\06.FindsTheLongestNonDecreasingSubsequence.csproj", "{25F06F8F-1074-4E86-85A4-6427D0EADB19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,10 +77,6 @@ Global
 		{FA1FF229-E7BD-4CF1-92D2-BB58399EE26A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA1FF229-E7BD-4CF1-92D2-BB58399EE26A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA1FF229-E7BD-4CF1-92D2-BB58399EE26A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A9960774-8C71-4B66-96BD-70FEB395913E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9960774-8C71-4B66-96BD-70FEB395913E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A9960774-8C71-4B66-96BD-70FEB395913E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A9960774-8C71-4B66-96BD-70FEB395913E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{21EC64C3-FE2D-47B6-AD99-E3CA716F9A9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{21EC64C3-FE2D-47B6-AD99-E3CA716F9A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21EC64C3-FE2D-47B6-AD99-E3CA716F9A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -141,6 +141,18 @@ Global
 		{39BACBD2-C68D-404A-9C0F-71A8F99650F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39BACBD2-C68D-404A-9C0F-71A8F99650F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39BACBD2-C68D-404A-9C0F-71A8F99650F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B4050BB-F208-4F43-B6E4-7C0C9BB9EACE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B4050BB-F208-4F43-B6E4-7C0C9BB9EACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B4050BB-F208-4F43-B6E4-7C0C9BB9EACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B4050BB-F208-4F43-B6E4-7C0C9BB9EACE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12049FC1-5C96-43CD-8112-212017339036}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12049FC1-5C96-43CD-8112-212017339036}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12049FC1-5C96-43CD-8112-212017339036}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12049FC1-5C96-43CD-8112-212017339036}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25F06F8F-1074-4E86-85A4-6427D0EADB19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25F06F8F-1074-4E86-85A4-6427D0EADB19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25F06F8F-1074-4E86-85A4-6427D0EADB19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25F06F8F-1074-4E86-85A4-6427D0EADB19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

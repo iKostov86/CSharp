@@ -11,7 +11,7 @@ class CompareElementOfIntArray
         {
             int[] firstArr = getArray(firstLen);
             int[] secondArr = getArray(secondLen);
-            bool result = GetArrayComparison(firstArr, secondArr);
+            bool result = GetArraysComparison(firstArr, secondArr);
 
             PrintAccordingToComparison(result);
         }
@@ -37,7 +37,7 @@ class CompareElementOfIntArray
         return arr;
     }
 
-    public static bool GetArrayComparison(int[] firstArr, int[] secondArr)
+    public static bool GetArraysComparison(int[] firstArr, int[] secondArr)
     {
         for (int i = 0; i < firstArr.Length; i++)
         {

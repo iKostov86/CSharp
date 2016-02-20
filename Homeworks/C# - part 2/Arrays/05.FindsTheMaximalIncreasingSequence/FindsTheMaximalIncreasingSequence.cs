@@ -5,45 +5,51 @@ class FindsTheMaximalSequence
 {
     static void Main()
     {
-        //digits from 0 to 9
-        string inputString = Console.ReadLine();
-        char[] charMassive = inputString.ToCharArray();
-        int startPosition = 0;
-        int newStart = 0;
-        int endPosition = 0;
-        int newEnd = 0;
+        //Console.WriteLine("Enter a string with digits from 0 to 9: ");
+        //string input = Console.ReadLine();
+        //char[] charArr = input.ToCharArray();
 
-        for (int i = 1; i < charMassive.Length; i++)
+        string str = "1234593694224567";
+        char[] charArr = str.ToCharArray();
+        int start = 0;
+        int currentStart = 0;
+        int count = 0;
+        int currentCount = 0;
+
+        for (int i = 1; i < charArr.Length; i++)
         {
-            if (charMassive[i] == charMassive[i - 1] + 1)
+            if (charArr[i] > charArr[i - 1])
             {
-                newEnd++;
-                if (i != charMassive.Length - 1)
+                currentCount++;
+                if (i == charArr.Length - 1 && currentCount > count)
                 {
-                    continue;
-                }
-                else if (newEnd > endPosition)
-                {
-                    startPosition = newStart;
-                    endPosition = newEnd;
+                    start = currentStart;
+                    count = currentCount;
                 }
             }
             else
             {
-                if (newEnd > endPosition)
+                if (currentCount > count)
                 {
-                    startPosition = newStart;
-                    endPosition = newEnd;
+                    start = currentStart;
+                    count = currentCount;
                 }
-                newStart = i;
-                newEnd = 0;
+                currentStart = i;
+                currentCount = 0;
             }
         }
 
-        for (int i = startPosition; i < startPosition + endPosition + 1; i++)
+        PrintArraySequence(charArr, start, count);
+    }
+
+    public static void PrintArraySequence(char[] charArr, int start, int count)
+    {
+        for (int i = start; i <= start + count; i++)
         {
-            Console.WriteLine(charMassive[i]);
+            Console.Write(charArr[i]);
         }
+
+        Console.WriteLine();
     }
 }
 

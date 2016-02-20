@@ -4,47 +4,68 @@ class FindsTheMaximalSequence
 {
     static void Main()
     {
-        int[] arrayOfChars = new int[12] { 2, 2, 7, 2, 2, 2, 7, 9, 9, 9, 9, 9 };
-        //int[] firstArray = new int[firstString.Length];
-        //Random rand = new Random();
+        //int[] arr = new int[] { 2, 2, 7, 2, 2, 2, 7, 9, 9, 9, 9, 9 };
+        //int[] arr = new int[] { 0, 8, 6, 6, 3 };
+        int[] arr = GetRandomIntArray();
         int bestIndex = 0;
         int bestReps = 1;
-        int tempReps = 1;
+        int currentReps = 1;
 
-        //for (int i = 0; i < firstArray.Length; i++)
-        //{
-        //    firstArray[i] = rand.Next(0, 11);
-        //}
+        Console.WriteLine("The array is: ");
+        PrintSequence(arr, 0, arr.Length);
 
-        for (int i = 1; i < arrayOfChars.Length; i++ )
+        for (int i = 1; i < arr.Length; i++)
         {
-            if (arrayOfChars[i] == arrayOfChars[i - 1])
+            if (arr[i] == arr[i - 1])
             {
-                tempReps++;
-                if (i != arrayOfChars.Length - 1)
+                if (i == arr.Length - 1 && currentReps > bestReps)
                 {
-                    
+                    bestIndex = i - currentReps;
+                    bestReps = currentReps + 1;
                 }
-                if(tempReps > bestReps)
+                else
                 {
-                    bestIndex = i - tempReps + 1;
-                    bestReps = tempReps;
+                    currentReps++;
                 }
             }
             else
             {
-                if (tempReps > bestReps)
+                if (currentReps > bestReps)
                 {
-                    bestIndex = i - tempReps + 1;
-                    bestReps = tempReps;
+                    bestIndex = i - currentReps;
+                    bestReps = currentReps;
                 }
-                tempReps = 1;
+                currentReps = 1;
             }
         }
 
-        for (int i = bestIndex; i < bestIndex + bestReps; i++)
+        Console.WriteLine("The maximal sequence is: ");
+        PrintSequence(arr, bestIndex, bestReps);
+    }
+
+    public static void PrintSequence(int[] arr, int index, int reps)
+    {
+        for (int i = index; i < index + reps; i++)
         {
-            Console.WriteLine(arrayOfChars[i]);
+            Console.Write("{0} ", arr[i]);
         }
+
+        Console.WriteLine();
+    }
+
+    public static int[] GetRandomIntArray()
+    {
+        Console.WriteLine("Enter an array dimension: ");
+        int len = int.Parse(Console.ReadLine());
+        int[] arr = new int[len];
+
+        Random rnd = new Random();
+
+        for (int i = 0; i < len; i++)
+        {
+            arr[i] = rnd.Next(0, 11);
+        }
+
+        return arr;
     }
 }
