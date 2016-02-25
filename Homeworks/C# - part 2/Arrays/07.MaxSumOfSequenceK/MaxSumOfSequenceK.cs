@@ -7,32 +7,34 @@ class MaxSumOfSequenceK
         //int n = int.Parse(Console.ReadLine());
         //int k = int.Parse(Console.ReadLine());
         //int[] arr = new int[n];
-        int n = 10;
         int k = 4;
         int[] arr = new int[] { 2, 3, -6, -1, 2, -1, 6, 4, -8, 8 };
+        int sum = 0;
         int bestSum = 0;
-        int bestIndex = 0;
+        int index = 0;
 
         //FillArray(arr);
 
-        for (int i = 0; i < n - k + 1; i++)
+        for (int i = 0; i < k; i++)
         {
-            int sum = 0;
-            int index = i;
-            for (int j = i; j < i + k; j++)
-            {
-                sum += arr[j];
-            }
+            sum += arr[i];
+        }
+
+        bestSum = sum;
+        for (int i = k; i < arr.Length; i++)
+        {
+            sum = sum - arr[i - k] + arr[i];
+
             if (sum > bestSum)
             {
                 bestSum = sum;
-                bestIndex = index;
+                index = i - k + 1;
             }
         }
 
         // input                                result
         // 2, 3, -6, -1, 2, -1, 6, 4, -8, 8     2, -1, 6, 4
-        PrintSequence(arr, bestIndex, k);
+        PrintSequence(arr, index, k);
     }
 
     public static void FillArray(int[] arr)

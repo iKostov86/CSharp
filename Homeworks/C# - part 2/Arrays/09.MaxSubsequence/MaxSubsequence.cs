@@ -6,58 +6,69 @@ class MaxSubsequence
     {
         /*** O(N) ***/
 
-        int[] array = new int[] { 2, 3, -5, -1, 2, -1, 6, 4, -8, 9 };
+        //int[] arr = new int[] { 2, 3, -5, -1, 2, -1, 6, 4, -8, 8 };
+        int[] arr = new int[] { 2, 3, 4, -12, 2, 4, -3 };
+        int sum = 0;
         int bestSum = 0;
-        int tempSum = 0;
-        int startIndex = 0;
-        int endIndex = 0;
+        int start = 0;
+        int end = 0;
+        int count = 0;
 
-        for (int i = 0; i < array.Length; i++)
+        for (int i = 0, len = arr.Length; i < len; i++)
         {
-            tempSum += array[i];
+            sum += arr[i];
+            count++;
 
-            if (tempSum > bestSum)
+            if (sum > bestSum)
             {
-                bestSum = tempSum;
-                endIndex = i + 1;
+                bestSum = sum;
+                end = i + 1;
+                start = end - count;
             }
-            if (tempSum < 0)
+            if (sum < 0)
             {
-                tempSum = 0;
-                startIndex = i + 1;
+                sum = 0;
+                count = 0;
             }
         }
-        Console.WriteLine(bestSum);
-        for (int i = startIndex; i < endIndex; i++)
-        {
-            Console.WriteLine(array[i]);
-        }
+
+        PrintSequence(arr, start, end);
 
         /*** O(N2) ***/
 
-        //int[] array = new int[] { 1, 4, 0, 5, 0, 11, -1 };
-        //int bestSum = int.MinValue;
-        //int tempSum = 0;
-        //int startIndex = 0;
-        //int endIndex = 0;
+        ////int[] arr = new int[] { 1, 4, 0, 5, 0, 11, -1 };
+        ////int[] arr = new int[] { 2, -1, 6, 4, -13, 32, 3, -1, -1, -5, 8 };
+        ////int[] arr = new int[] { 2, 3, -5, -1, 2, -1, 6, 4, -8, 9 };
+        //int[] arr = new int[] { 2, 3, 4, -12, 2, 43, -3 };
+        //int bestSum = 0;
+        //int start = 0;
+        //int end = 0;
 
-        //for (int i = 0; i < array.Length; i++)
+        //for (int i = 0, len = arr.Length; i < len; i++)
         //{
-        //    tempSum = 0;
-        //    for (int j = i; j < array.Length; j++)
+        //    int sum = 0;
+        //    for (int j = i; j < len; j++)
         //    {
-        //        tempSum += array[j];
-        //        if (tempSum > bestSum)
+        //        sum += arr[j];
+        //        if (sum > bestSum)
         //        {
-        //            bestSum = tempSum;
-        //            startIndex = i;
-        //            endIndex = j;
+        //            bestSum = sum;
+        //            start = i;
+        //            end = j + 1;
         //        }
         //    }
         //}
-        //for (int i = startIndex; i < endIndex + 1; i++)
-        //{
-        //    Console.WriteLine(array[i]);
-        //}
+
+        //PrintSequence(arr, start, end);
+    }
+
+    public static void PrintSequence(int[] arr, int start, int end)
+    {
+        for (int i = start; i < end; i++)
+        {
+            Console.Write("{0} ", arr[i]);
+        }
+
+        Console.WriteLine();
     }
 }

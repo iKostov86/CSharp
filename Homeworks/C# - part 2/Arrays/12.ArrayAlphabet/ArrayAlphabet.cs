@@ -1,23 +1,34 @@
 ﻿using System;
-using System.Text;
 
-class ArrayAlphabet
+public class ArrayAlphabet
 {
-    static void Main()
+    internal static void Main()
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+        string textStr = Console.ReadLine().ToUpper();
+        char[] textArr = textStr.ToCharArray();
         char[] alphabet = new char[90 - 64];
-        //Console.WriteLine(alphabet.Length);
-        for (int i = 0; i < alphabet.Length; i++)
+
+        FillAlphabet(alphabet);
+        PrintLetterIndexes(alphabet, textArr);
+    }
+
+    public static void FillAlphabet(char[] alphabet)
+    {
+        for (int i = 0, len = alphabet.Length; i < len; i++)
         {
             alphabet[i] = (char)(65 + i);
-            //Console.WriteLine(alphabet[i]);
         }
-        string textString = Console.ReadLine();
-        char[] textChar = textString.ToCharArray();
-        for (int i = 0; i < textChar.Length; i++)
+    }
+
+    public static void PrintLetterIndexes(char[] alphabet, char[] textArr)
+    {
+        for (int i = 0, len = textArr.Length; i < len; i++)
         {
-            Console.WriteLine(Array.BinarySearch(alphabet, textChar[i]) + " ");
+            Console.Write("{0} ", Array.BinarySearch(alphabet, textArr[i]) + 1);
         }
+
+        Console.WriteLine();
     }
 }

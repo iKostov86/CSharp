@@ -1,30 +1,49 @@
 ﻿using System;
 
-class SieveOfEratosthenes
+public class SieveOfEratosthenes
 {
-    static void Main()
+    internal static void Main()
     {
-        int[] arrayPrimes = new int[100];
-        for (int i = 0; i < arrayPrimes.Length; i++)
-        {
-            arrayPrimes[i] = i + 1;
-        }
-        for (int i = 2; i < arrayPrimes.Length; i++)
+        int dimension = 100;
+        int?[] primes = GetNumbers(dimension);
+
+        for (int i = 2, len = primes.Length; i < len; i++)
         {
             if (i != 0)
             {
-                for (int j = (i * 2) - 1; j < arrayPrimes.Length; j += i)
+                for (int j = (i * 2) - 1; j < len; j += i)
                 {
-                    arrayPrimes[j] = 0;
+                    primes[j] = null;
                 }
             }
         }
-        for (int i = 0; i < arrayPrimes.Length; i++)
+
+        PrintPrimes(primes);
+    }
+
+    public static int?[] GetNumbers(int length)
+    {
+        int?[] nums = new int?[length];
+
+        for (int i = 0, len = nums.Length; i < len; i++)
         {
-            if (arrayPrimes[i] != 0)
+            nums[i] = i + 1;
+        }
+
+        return nums;
+    }
+
+    public static void PrintPrimes(int?[] primes)
+    {
+
+        for (int i = 1, len = primes.Length; i < len; i++)
+        {
+            if (primes[i] != null)
             {
-                Console.WriteLine(arrayPrimes[i]);
+                Console.Write("{0} ", primes[i]);
             }
         }
+
+        Console.WriteLine();
     }
 }

@@ -4,25 +4,29 @@ class SelectionSortArray
 {
     static void Main()
     {
-        int[] array = new int[] { 5, 7, 9, 46, 77, 79, 1, 3 };
-        int temp = 0;
+        int[] arr = new int[] { 5, 7, 9, 46, 77, 79, 1, 3 };
 
-        for (int i = 0; i < array.Length; i++)
+        for (int i = 0, len = arr.Length; i < len; i++)
         {
-            for (int j = i + 1; j < array.Length; j++)
+            for (int j = i + 1; j < arr.Length; j++)
             {
-                if (array[i] > array[j])
+                if (arr[i] > arr[j])
                 {
-                    temp = array[i];
-                    array[i] = array[j];
-                    array[j] = temp;
+                    int current = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = current;
                 }
             }
         }
-        for (int i = 0; i < array.Length; i++)
+
+        PrintArray(arr);
+    }
+
+    public static void PrintArray(int[] arr)
+    {
+        foreach (var element in arr)
         {
-            Console.WriteLine(array[i]);
+            Console.WriteLine(element);
         }
     }
 }
-

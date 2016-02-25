@@ -1,41 +1,32 @@
 ﻿using System;
 
-class QuickSort
+public class QuickSort
 {
-    static int[] array = new int[12];
-
-    static void Main()
+    internal static void Main()
     {
-        Random rand = new Random();
-        for (int i = 0; i < array.Length; i++)
-        {
-            array[i] = rand.Next(-10, 100);
-            Console.WriteLine(array[i]);
-        }
-        Console.WriteLine();
+        int[] arr = GetArray(12);
 
-        if (0 < array.Length)
+        PrintArray(arr);
+
+        if (0 < arr.Length)
         {
-            QuickSortMethod(0, array.Length - 1);
+            SortArray(arr, 0, arr.Length - 1);
         }
-        for (int i = 0; i < array.Length; i++)
-        {
-            Console.WriteLine(array[i]);
-        }
-        Console.WriteLine();
+
+        PrintArray(arr);
     }
 
-    static public void QuickSortMethod(int left, int right)
+    public static void SortArray(int[] arr, int left, int right)
     {
         int start = left;
         int end = right;
         int direction = 0;
         int middle = 0;
-        int swapTemp = 0;
+        int swap = 0;
 
         while (left < right)
         {
-            if (array[left] < array[right])
+            if (arr[left] < arr[right])
             {
                 if (direction == 0)
                 {
@@ -48,11 +39,11 @@ class QuickSort
             }
             else
             {
-                if (array[left] != array[right])
+                if (arr[left] != arr[right])
                 {
-                    swapTemp = array[left];
-                    array[left] = array[right];
-                    array[right] = swapTemp;
+                    swap = arr[left];
+                    arr[left] = arr[right];
+                    arr[right] = swap;
                 }
                 if (direction == 0)
                 {
@@ -72,8 +63,31 @@ class QuickSort
 
         if ((start < middle - 1) || (middle + 1 < end))
         {
-            QuickSortMethod(start, middle - 1);
-            QuickSortMethod(middle + 1, end);
+            SortArray(arr, start, middle - 1);
+            SortArray(arr, middle + 1, end);
         }
+    }
+
+    public static int[] GetArray(int length)
+    {
+        int[] arr = new int[length];
+
+        Random rand = new Random();
+        for (int i = 0; i < arr.Length; i++)
+        {
+            arr[i] = rand.Next(-10, 100);
+        }
+
+        return arr;
+    }
+
+    public static void PrintArray(int[] arr)
+    {
+        for (int i = 0; i < arr.Length; i++)
+        {
+            Console.Write("{0} ", arr[i]);
+        }
+
+        Console.WriteLine();
     }
 }

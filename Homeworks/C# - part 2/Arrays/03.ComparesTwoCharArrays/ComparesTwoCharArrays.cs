@@ -1,43 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 class ComparesTwoCharArrays
 {
+    public const string FIRST = "first";
+    public const string SECOND = "second";
+    public const string EQUAL = "equal";
+
     static void Main()
     {
-        string firstStr = GetUserStr();
-        string secondStr = GetUserStr();
+        string firstStr = GetInput();
+        string secondStr = GetInput();
+        char[] firstArr = firstStr.ToLower().ToCharArray();
+        char[] secondArr = secondStr.ToLower().ToCharArray();
+        string comparisonResult = GetCharArraysComparison(firstArr, secondArr);
 
-        if (ValidateCharArraysDimensionEquality(firstStr.Length, secondStr.Length))
-        {
-            char[] firstArr = firstStr.ToCharArray();
-            char[] secondArr = secondStr.ToCharArray();
-            bool comparisonResult = GetCharArraysComparison(firstArr, secondArr);
+        Console.WriteLine(firstStr);
+        Console.WriteLine(secondStr);
+        Console.WriteLine();
 
-            PrintAccordingToComparison(comparisonResult);
-        }
+        PrintAccordingToComparison(comparisonResult, firstStr, secondStr);
     }
 
-    public static string GetUserStr()
+    public static string GetRandomInput()
+    {
+        Random random = new Random();
+        StringBuilder sequence = new StringBuilder();
+        char[] alphabet = Enumerable.Range('A', 26)
+            .Select(x => (char)x)
+            .Concat(Enumerable.Range('a', 26)
+                .Select(y => (char)y))
+            .ToArray();
+
+        for (int i = 0, len = random.Next(1, 11); i < len; i++)
+        {
+            sequence.Append(alphabet[random.Next(0, alphabet.Length)]);
+        }
+
+        return sequence.ToString();
+    }
+
+    public static string GetInput()
     {
         Console.WriteLine("Please enter a string: ");
+        string input = Console.ReadLine();
 
-        return Console.ReadLine();
+        if (string.IsNullOrEmpty(input))
+        {
+            input = GetRandomInput();
+        }
+
+        return input;
     }
 
-    public static bool GetCharArraysComparison(char[] firstArr, char[] secondArr)
+    public static string GetCharArraysComparison(char[] firstArr, char[] secondArr)
     {
-        int comparisonLen = GetComparisonLen(firstArr.Length, secondArr.Length);
+        int firstLen = firstArr.Length;
+        int secondLen = secondArr.Length;
+        int comparisonLen = GetComparisonLen(firstLen, secondLen);
 
         for (int i = 0; i < comparisonLen; i++)
         {
-            if (firstArr[i] != secondArr[i])
+            if (firstArr[i] < secondArr[i])
             {
-                return false;
+                return FIRST;
+            }
+            else if (firstArr[i] > secondArr[i])
+            {
+                return SECOND;
             }
         }
 
-        return true;
+        return EQUAL;
     }
 
     public static int GetComparisonLen(int firstLen, int secondLen)
@@ -45,26 +81,19 @@ class ComparesTwoCharArrays
         return firstLen <= secondLen ? firstLen : secondLen;
     }
 
-    public static bool ValidateCharArraysDimensionEquality(int firstLen, int secondLen)
+    public static void PrintAccordingToComparison(string result, string firstStr, string secondStr)
     {
-        if (firstLen != secondLen)
-        {
-            Console.WriteLine("The arrays can not be the same.");
-            return false;
-        }
-
-        return true;
-    }
-
-    public static void PrintAccordingToComparison(bool result)
-    {
-        if (result)
+        if (result == EQUAL)
         {
             Console.WriteLine("Both are the same.");
         }
+        else if (result == FIRST)
+        {
+            Console.WriteLine("{0} is before {1} lexicographically.", firstStr, secondStr);
+        }
         else
         {
-            Console.WriteLine("The char arrays are not equal.");
+            Console.WriteLine("{0} is after {1} lexicographically", firstStr, secondStr);
         }
     }
 }

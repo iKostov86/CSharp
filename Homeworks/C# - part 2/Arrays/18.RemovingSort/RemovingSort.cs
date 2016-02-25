@@ -5,55 +5,64 @@ class RemovingSort
 {
     static void Main()
     {
-        //int[] arrayNumbers = new int[] {6, 1, 4, 3, 0, 3, 6, 4, 5 };
-        int[] arrayNumbers = new int[] { 4, 3 ,4, 1, 2};
-        //int[] arrayNumbers = new int[] { 10, 9, 6, 2, 7, 4, 7, 6, 5, 8, 4};
+        // int[] nums = new int[] { 10, 9, 6, 2, 7, 4, 7, 6, 5, 8, 4};
+        int[] nums = new int[] { 6, 1, 4, 3, 0, 3, 6, 4, 5 };
+        //int[] nums = new int[] { 4, 3 ,4, 1, 2};
+        int len = nums.Length;
 
-        int[] arraySorted = new int[arrayNumbers.Length];
+        int[] sortedNums = new int[len];
         int bestIndex = 0;
 
-        for (int i = 0; i < arrayNumbers.Length; i++)
+        for (int i = 0; i < len; i++)
         {
-            int[] arrayTemp = new int[arrayNumbers.Length];
+            int[] arr = new int[len];
             int newIndex = 0;
-            arrayTemp[newIndex] = arrayNumbers[i];
+            arr[newIndex] = nums[i];
 
-            for (int j = i; j < arrayNumbers.Length - 1; j++)
+            for (int j = i; j < len - 1; j++)
             {
-                if (arrayNumbers[j + 1] > arrayTemp[newIndex])
+                if (nums[j + 1] > arr[newIndex])
                 {
                     newIndex++;
-                    arrayTemp[newIndex] = arrayNumbers[j + 1];
+                    arr[newIndex] = nums[j + 1];
                 }
-                else if ((newIndex > 0) && (arrayNumbers[j + 1] == arrayTemp[newIndex]))
+                else if ((newIndex > 0) && (nums[j + 1] == arr[newIndex]))
                 {
                     newIndex++;
-                    arrayTemp[newIndex] = arrayNumbers[j + 1];
+                    arr[newIndex] = nums[j + 1];
                 }
-                else if((newIndex > 0) && (arrayNumbers[j + 1] > arrayTemp[newIndex - 1]))
+                else if((newIndex > 0) && (nums[j + 1] > arr[newIndex - 1]))
                 {
-                    arrayTemp[newIndex] = arrayNumbers[j + 1];
+                    arr[newIndex] = nums[j + 1];
                 }
             }
             if (newIndex > bestIndex)
             {
                 bestIndex = newIndex;
-                for (int k = 0; k < arrayTemp.Length; k++)
+                for (int k = 0; k < arr.Length; k++)
                 {
-                    arraySorted[k] = arrayTemp[k];
+                    sortedNums[k] = arr[k];
                 }
             }
-            else if((newIndex == bestIndex) && (arrayTemp[0] < arraySorted[0]))
+            else if((newIndex == bestIndex) && (arr[0] < sortedNums[0]))
             {
-                for (int k = 0; k < arrayTemp.Length; k++)
+                for (int k = 0; k < arr.Length; k++)
                 {
-                    arraySorted[k] = arrayTemp[k];
+                    sortedNums[k] = arr[k];
                 }
             }
         }
-        for (int i = 0; i <= bestIndex; i++)
+
+        PrintNumbers(sortedNums, bestIndex);
+    }
+
+    public static void PrintNumbers(int[] arr, int index)
+    {
+        for (int i = 0; i <= index; i++)
         {
-            Console.WriteLine(arraySorted[i]);
+            Console.Write("{0} ", arr[i]);
         }
+
+        Console.WriteLine();
     }
 }

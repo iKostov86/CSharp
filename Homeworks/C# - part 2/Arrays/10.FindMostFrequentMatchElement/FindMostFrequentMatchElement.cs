@@ -4,62 +4,63 @@ class FindMostFrequentMatchElement
 {
     static void Main()
     {
-        int[] array = new int[] { 1, 4, 4, 5, 4, 11, -11 };
-        Array.Sort(array);
-        int bestNum = array[0];
-        int bestReps = 1;
-        int tempReps = 1;
-        
-        //for (int i = 0; i < array.Length; i++)
+        //int[] arr = new int[] { 1, 4, 4, 5, 4, 11, -11 };
+        //Array.Sort(arr);
+
+        //int reps = 1;
+        //int bestReps = 1;
+        //int bestNum = arr[0];
+
+        //for (int i = 1, len = arr.Length; i < len; i++)
         //{
-        //    Console.WriteLine(array[i]);
+        //    if (arr[i] == arr[i - 1])
+        //    {
+        //        reps++;
+        //    }
+        //    else
+        //    {
+        //        if (reps > bestReps)
+        //        {
+        //            bestReps = reps;
+        //            bestNum = arr[i - 1];
+        //        }
+
+        //        reps = 1;
+        //    }
         //}
 
-        for (int i = 1; i < array.Length; i++)
+        //Console.WriteLine("The most common number is: {0}, it occurs {1} time.", bestNum, bestReps);
+
+        int?[] arr = new int?[] { 1, 4, 4, 5, 4, 11, -11 };
+        int reps = 1;
+        int bestReps = 1;
+        int? num = arr[0];
+        int? bestNum = num;
+
+        for (int i = 0, len = arr.Length; i < len; i++)
         {
-            if (array[i - 1] == array[i])
+            reps = 1;
+            num = arr[i];
+
+            if (num != null)
             {
-                tempReps++;
-            }
-            else
-            {
-                if (tempReps > bestReps)
+                for (int j = i + 1; j < len; j++)
                 {
-                    bestReps = tempReps;
-                    bestNum = array[i - 1];
+                    if (num == arr[j])
+                    {
+                        reps++;
+                        arr[j] = null;
+                    }
                 }
-                tempReps = 1;
+
+                if (reps > bestReps)
+                {
+                    bestReps = reps;
+                    bestNum = num;
+                }
             }
         }
 
-        Console.WriteLine(bestNum);
-        Console.WriteLine(bestReps);
-
-        //int bestNum = int.MinValue;
-        //int tempNum = int.MinValue;
-        //int bestReps = 1;
-        //int tempReps = 1;
-
-        //for (int i = 0; i < array.Length; i++)
-        //{
-        //    tempNum = array[i];
-        //    tempReps = 1;
-        //    for (int j = i + 1; j < array.Length; j++)
-        //    {
-        //        if (tempNum == array[j])
-        //        {
-        //            tempReps++;
-        //            array[j] = int.MinValue;
-        //        }
-        //    }
-        //    if (tempReps > bestReps)
-        //    {
-        //        bestNum = tempNum;
-        //        bestReps = tempReps;
-        //    }
-        //}
-        //Console.WriteLine(bestNum);
-
-
+        Console.WriteLine("The most common number is: {0}, it occurs {1} time.", bestNum, bestReps);
     }
 }
