@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 public class LongestSequenceOfEqualStrings
 {
@@ -248,12 +249,7 @@ public class LongestSequenceOfEqualStrings
     public static void PrintLongestSequence(string sequence, int count)
     {
         Console.Write("Longest sequence is: ");
-
-        for (int i = 0; i < count; i++)
-        {
-            Console.Write("{0} ", sequence);
-        }
-
-        Console.WriteLine();
+        Console.WriteLine(string.Join(" ", Enumerable.Repeat(sequence, count)));
+        //Console.WriteLine(string.Concat(Enumerable.Repeat(sequence + " ", count)));
     }
 }
