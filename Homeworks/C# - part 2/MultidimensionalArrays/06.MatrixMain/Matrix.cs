@@ -1,6 +1,6 @@
 ﻿using System;
 
-class Matrix
+public class Matrix
 {
     private int[,] matrix;
 
@@ -25,19 +25,24 @@ class Matrix
         }
     }
 
-    public static Matrix operator +
-        (Matrix first, Matrix second)
+    public static Matrix operator +(Matrix first, Matrix second)
     {
-        Matrix result = new Matrix(first.Rows, second.Columns);
-        for (int row = 0; row < first.Rows; row++)
+        if (first.Rows == second.Rows && first.Columns == second.Columns)
         {
-            for (int col = 0; col < first.Columns; col++)
+            Matrix result = new Matrix(first.Rows, first.Columns);
+
+            for (int row = 0, rowLen = first.Rows; row < rowLen; row++)
             {
-                result[row, col] = first[row, col] + second[row, col];
+                for (int col = 0, colLen = second.Columns; col < colLen; col++)
+                {
+                    result[row, col] = first[row, col] + second[row, col];
+                }
             }
+
+            return result;
         }
 
-        return result;
+        return new Matrix(0, 0);
     }
 
     public int this[int row, int col]
@@ -55,15 +60,18 @@ class Matrix
 
     public override string ToString()
     {
-        string result = null;
-        for (int row = 0; row < this.Rows; row++)
+        string result = string.Empty;
+
+        for (int row = 0, rowLen = this.Rows; row < rowLen; row++)
         {
-            for (int col = 0; col < this.matrix.GetLength(1); col++)
+            for (int col = 0, colLen = this.Columns; col < colLen; col++)
             {
                 result += matrix[row, col] + " ";
             }
+
             result += Environment.NewLine;
         }
+
         return result;
     }
 }

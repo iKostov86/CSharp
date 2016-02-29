@@ -1,36 +1,32 @@
 ﻿using System;
 
-class StringArraySortByLength
+public class StringArraySortByLength
 {
-
     /*** using quick sort implementation ***/
 
-    //public static void Main()
+    //internal static void Main()
     //{
-    //    string[] array = new string[] { "", "H", "Hello, my friend", "Hi", "Hello", "Hello!", "E tva e nai dylgoto izrechenie sha znaish!" };
+    //    string[] arr = new string[] { "", "H", "Hello, my friend", "Hi", "Hello", "Hello!", "E tva e nai dylgoto izrechenie sha znaish!" };
 
-    //    if (0 < array.Length)
+    //    if (0 < arr.Length)
     //    {
-    //        QuickSortMethod(array, 0, array.Length - 1);
+    //        QuickSort(arr, 0, arr.Length - 1);
     //    }
-    //    for (int i = 0; i < array.Length; i++)
-    //    {
-    //        Console.WriteLine(array[i]);
-    //    }
-    //    Console.WriteLine();
+
+    //    PrintArray(arr);
     //}
 
-    //public static void QuickSortMethod(string[] array, int left, int right)
+    //public static void QuickSort(string[] arr, int left, int right)
     //{
     //    int start = left;
     //    int end = right;
     //    int direction = 0;
     //    int middle = 0;
-    //    string swapTemp = "";
+    //    string swap = string.Empty;
 
     //    while (left < right)
     //    {
-    //        if (array[left].Length < array[right].Length)
+    //        if (arr[left].Length < arr[right].Length)
     //        {
     //            if (direction == 0)
     //            {
@@ -43,11 +39,11 @@ class StringArraySortByLength
     //        }
     //        else
     //        {
-    //            if (array[left].Length != array[right].Length)
+    //            if (arr[left].Length != arr[right].Length)
     //            {
-    //                swapTemp = array[left];
-    //                array[left] = array[right];
-    //                array[right] = swapTemp;
+    //                swap = arr[left];
+    //                arr[left] = arr[right];
+    //                arr[right] = swap;
     //            }
     //            if (direction == 0)
     //            {
@@ -60,35 +56,47 @@ class StringArraySortByLength
     //                right--;
     //            }
     //        }
-
     //    }
 
     //    middle = right;
 
     //    if ((start < middle - 1) || (middle + 1 < end))
     //    {
-    //        QuickSortMethod(array, start, middle - 1);
-    //        QuickSortMethod(array, middle + 1, end);
+    //        QuickSort(arr, start, middle - 1);
+    //        QuickSort(arr, middle + 1, end);
     //    }
-
     //}
 
     /*** using Lambda expressions ***/
 
-    public static void Main()
+    internal static void Main()
     {
-        Console.WriteLine("Please enter lenght of the array N: ");
+        Console.WriteLine("Please enter a size of the array: ");
         int n = int.Parse(Console.ReadLine());
-        string[] array = new string[n];
-        for (int index = 0; index < array.Length; index++)
+        string[] arr = new string[n];
+
+        FillArray(arr);
+        PrintArray(arr);
+        Array.Sort(arr, (x, y) => x.Length.CompareTo(y.Length));
+        PrintArray(arr);
+    }
+
+    public static void FillArray(string[] arr)
+    {
+        for (int i = 0, len = arr.Length; i < len; i++)
         {
-            Console.Write("Enter element[{0}] = ", index);
-            array[index] = Console.ReadLine();
+            Console.Write("Enter element[{0}] = ", i);
+            arr[i] = Console.ReadLine();
         }
-        Array.Sort(array, (x, y) => x.Length.CompareTo(y.Length));
-        foreach (var item in array)
+    }
+
+    public static void PrintArray(string[] arr)
+    {
+        foreach (var item in arr)
         {
-            Console.WriteLine(item);
+            Console.Write("{0} ", item);
         }
+
+        Console.WriteLine();
     }
 }

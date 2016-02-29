@@ -1,44 +1,51 @@
 ﻿using System;
 
-class MatrixFillsAndPrint
+public class MatrixFillsAndPrint
 {
-    static void Main()
+    internal static void Main()
     {
-        int[,] matrix = new int[, ]
-        {
-            { 1, 5 ,9 , 13 },
-            { 2, 6, 10, 14 },
-            { 3, 7, 11, 15 },
-            { 4, 8, 12, 16 },
-        };
-
-        //int nSize = int.Parse(Console.ReadLine());
-        //int mSize = int.Parse(Console.ReadLine());
-        //int[,] matrix = new int[nSize, mSize];
-
-        //for (int row = 0; row < matrix.GetLength(0); row++)
+        //int[,] matrix = new int[,]
         //{
-        //    for (int col = 0; col < matrix.GetLength(1); col++)
-        //    {
-        //        matrix[row, col] = int.Parse(Console.ReadLine());
-        //    }
-        //}
+        //    { 1, 5 ,9 , 13 },
+        //    { 2, 6, 10, 14 },
+        //    { 3, 7, 11, 15 },
+        //    { 4, 8, 12, 16 },
+        //};
 
-        //Console.WriteLine();
+        int[,] matrix = GetMatrix();
 
-        Console.WriteLine();
+        PrintMatrix(matrix);
+    }
 
-        for (int row = 0; row < matrix.GetLength(0); row++)
+    public static int[,] GetMatrix()
+    {
+        Random gen = new Random();
+        int firstDimension = int.Parse(Console.ReadLine());
+        int secondDimension = int.Parse(Console.ReadLine());
+        int[,] matrix = new int[firstDimension, secondDimension];
+
+        for (int row = 0, rowLen = matrix.GetLength(0); row < rowLen; row++)
         {
-            for (int col = 0; col < matrix.GetLength(1); col++)
+            for (int col = 0, colLen = matrix.GetLength(1); col < colLen; col++)
             {
-                Console.Write(matrix[row, col] + " ");
+                //matrix[row, col] = int.Parse(Console.ReadLine());
+                matrix[row, col] = gen.Next(1, 99);
             }
-            Console.WriteLine();
-            Console.WriteLine();
         }
 
-        Console.WriteLine();
+        return matrix;
+    }
 
+    public static void PrintMatrix(int[,] matrix)
+    {
+        for (int row = 0, rowsLen = matrix.GetLength(0); row < rowsLen; row++)
+        {
+            for (int col = 0, colLen = matrix.GetLength(1); col < colLen; col++)
+            {
+                Console.Write("{0} ", matrix[row, col]);
+            }
+
+            Console.WriteLine();
+        }
     }
 }

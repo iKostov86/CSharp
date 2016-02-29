@@ -1,8 +1,8 @@
 ﻿using System;
 
-class MatrixMain
+public class MatrixMain
 {
-    static void Main()
+    internal static void Main()
     {
         Matrix matrix1 = new Matrix(2, 2);
         matrix1[0, 0] = 1;

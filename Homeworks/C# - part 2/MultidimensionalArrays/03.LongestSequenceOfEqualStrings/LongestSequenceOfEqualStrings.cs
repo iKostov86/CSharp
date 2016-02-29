@@ -1,174 +1,259 @@
 ﻿using System;
-using System.Collections.Generic;
 
-class LongestSequenceOfEqualStrings
+public class LongestSequenceOfEqualStrings
 {
-    static void Main()
+
+    internal static void Main()
     {
-        string[,] matrix = new string[,]
-            {
-                {"ha", "fifi", "ho", "hi"},
-                {"fo", "ha", "hi", "xx"},
-                {"xxx", "ho", "ha", "xx"},
-            };
         //string[,] matrix = new string[,]
-        //    {
-        //        {"s", "qq", "s"},
-        //        {"pp", "pp", "s"},
-        //        {"pp", "qq", "s"},
-        //    };
-
-        List<string> bestSequence = new List<string>();
-        List<string> currentSequence = new List<string>();
-        //int diagonalSize = (matrix.GetLength(0) < matrix.GetLength(1)) ? matrix.GetLength(0) : matrix.GetLength(1);
-
-        /*** horizontal chek ***/
-        for (int row = 0; row < matrix.GetLength(0); row++)
+        //{
+        //    {"s", "qq", "s"},
+        //    {"pp", "pp", "s"},
+        //    {"pp", "qq", "s"},
+        //};
+        string[,] matrix = new string[,]
         {
-            currentSequence = new List<string>();
-            currentSequence.Add(matrix[row, 0]);
-            for (int col = 1; col < matrix.GetLength(1); col++)
+            {"ha", "fifi", "ho", "hi"},
+            {"fo", "ha", "hi", "xx"},
+            {"xxx", "ho", "ha", "xx"},
+        };
+
+        string bestSequence = String.Empty;
+        int bestCount = 0;
+        int rowLen = matrix.GetLength(0);
+        int colLen = matrix.GetLength(1);
+        int diagonal = (rowLen < colLen) ? rowLen : colLen;
+
+        /*** horizontal check ***/
+        for (int row = 0; row < rowLen; row++)
+        {
+            string sequence = matrix[row, 0];
+            int count = 1;
+
+            for (int col = 1; col < colLen; col++)
             {
-                if (matrix[row, col] == currentSequence[currentSequence.Count - 1])
+                bool isLastCol = (col == colLen - 1);
+
+                if (sequence == matrix[row, col])
                 {
-                    currentSequence.Add(matrix[row, col]);
-                }
-                if ((matrix[row, col] != currentSequence[currentSequence.Count - 1]) ||
-                    (col == matrix.GetLength(1) - 1))
-                {
-                    if (bestSequence.Count < currentSequence.Count)
+                    count++;
+
+                    if (isLastCol && count > bestCount)
                     {
-                        bestSequence = currentSequence;
+                        bestSequence = sequence;
+                        bestCount = count;
                     }
-                    currentSequence = new List<string>();
-                    currentSequence.Add(matrix[row, col]);
+                }
+                else
+                {
+                    if (count > bestCount)
+                    {
+                        bestSequence = sequence;
+                        bestCount = count;
+                    }
+
+                    if (!isLastCol)
+                    {
+                        sequence = matrix[row, col];
+                        count = 1;
+                    }
                 }
             }
         }
 
-        /*** vertical chek ***/
-        for (int col = 0; col < matrix.GetLength(1); col++)
+        /*** vertical check ***/
+        for (int col = 0; col < colLen; col++)
         {
-            currentSequence = new List<string>();
-            currentSequence.Add(matrix[0, col]);
-            for (int row = 1; row < matrix.GetLength(0); row++)
+            string sequence = matrix[0, col];
+            int count = 1;
+
+            for (int row = 1; row < rowLen; row++)
             {
-                if (matrix[row, col] == currentSequence[currentSequence.Count - 1])
+                bool isLastRow = (row == rowLen - 1);
+
+                if (sequence == matrix[row, col])
                 {
-                    currentSequence.Add(matrix[row, col]);
-                }
-                if ((matrix[row, col] != currentSequence[currentSequence.Count - 1]) ||
-                    (row == matrix.GetLength(0) - 1))
-                {
-                    if (bestSequence.Count < currentSequence.Count)
+                    count++;
+
+                    if (isLastRow && count > bestCount)
                     {
-                        bestSequence = currentSequence;
+                        bestSequence = sequence;
+                        bestCount = count;
                     }
-                    currentSequence = new List<string>();
-                    currentSequence.Add(matrix[row, col]);
+                }
+                else
+                {
+                    if (count > bestCount)
+                    {
+                        bestSequence = sequence;
+                        bestCount = count;
+                    }
+
+                    if (!isLastRow)
+                    {
+                        sequence = matrix[row, col];
+                        count = 1;
+                    }
                 }
             }
         }
 
         /*** diagonal check top to bottom ***/
         /* left half */
-        for (int row = 0; row < matrix.GetLength(0); row++)
+        for (int row = 0; row < rowLen; row++)
         {
-            currentSequence = new List<string>();
-            currentSequence.Add(matrix[row, 0]);
-            for (int checkRow = row + 1, checkCol = 1; checkRow < matrix.GetLength(0) && checkCol < matrix.GetLength(1); checkRow++, checkCol++)
+            string sequence = matrix[row, 0];
+            int count = 1;
+
+            for (int checkRow = row + 1, checkCol = 1; checkRow < diagonal && checkCol < diagonal; checkRow++, checkCol++)
             {
-                if (matrix[checkRow, checkCol] == currentSequence[currentSequence.Count - 1])
+                bool isLastIndex = (checkRow == rowLen - 1 || checkCol == colLen - 1);
+
+                if (sequence == matrix[checkRow, checkCol])
                 {
-                    currentSequence.Add(matrix[checkRow, checkCol]);
-                }
-                if (matrix[checkRow, checkCol] != currentSequence[currentSequence.Count - 1] || checkCol == matrix.GetLength(1) - 1 || checkRow == matrix.GetLength(0) - 1)
-                {
-                    if (bestSequence.Count < currentSequence.Count)
+                    count++;
+
+                    if (isLastIndex && count > bestCount)
                     {
-                        bestSequence = currentSequence;
+                        bestSequence = sequence;
+                        bestCount = count;
                     }
-                    currentSequence = new List<string>();
-                    currentSequence.Add(matrix[checkRow, checkCol]);
                 }
-            }
-        }
-        /* right half */
-        for (int col = 1; col < matrix.GetLength(1); col++)
-        {
-            currentSequence = new List<string>();
-            currentSequence.Add(matrix[0, col]);
-            for (int checkRow = 1, checkCol = col + 1; checkRow < matrix.GetLength(0) && checkCol < matrix.GetLength(1); checkRow++, checkCol++)
-            {
-                if (matrix[checkRow, checkCol] == currentSequence[currentSequence.Count - 1])
+                else
                 {
-                    currentSequence.Add(matrix[checkRow, checkCol]);
-                }
-                if (matrix[checkRow, checkCol] != currentSequence[currentSequence.Count - 1] || checkCol == matrix.GetLength(1) - 1 || checkRow == matrix.GetLength(0) - 1)
-                {
-                    if (bestSequence.Count < currentSequence.Count)
+                    if (count > bestCount)
                     {
-                        bestSequence = currentSequence;
+                        bestSequence = sequence;
+                        bestCount = count;
                     }
-                    currentSequence = new List<string>();
-                    currentSequence.Add(matrix[checkRow, checkCol]);
+
+                    if (!isLastIndex)
+                    {
+                        sequence = matrix[checkRow, checkCol];
+                        count = 1;
+                    }
                 }
             }
         }
 
-        /*** diagonal chek bottom to top ***/
+        /* right half */
+        for (int col = 1; col < colLen; col++)
+        {
+            string sequence = matrix[0, col];
+            int count = 1;
+
+            for (int checkRow = 1, checkCol = col + 1; checkRow < diagonal && checkCol < diagonal; checkRow++, checkCol++)
+            {
+                bool isLastIndex = (checkRow == rowLen - 1 || checkCol == colLen - 1);
+
+                if (sequence == matrix[checkRow, checkCol])
+                {
+                    count++;
+
+                    if (isLastIndex && count > bestCount)
+                    {
+                        bestSequence = sequence;
+                        bestCount = count;
+                    }
+                }
+                else
+                {
+                    if (count > bestCount)
+                    {
+                        bestSequence = sequence;
+                        bestCount = count;
+                    }
+
+                    if (!isLastIndex)
+                    {
+                        sequence = matrix[checkRow, checkCol];
+                        count = 1;
+                    }
+                }
+            }
+        }
+
+        /*** diagonal check bottom to top ***/
         /* left half */
-        for (int row = matrix.GetLength(0) - 1; row >= 0; row--)
+        for (int row = rowLen - 1; row >= 0; row--)
         {
-            currentSequence = new List<string>();
-            currentSequence.Add(matrix[row, 0]);
-            for (int checkRow = row - 1, checkCol = 1; 
-                 checkRow >= 0 && checkCol < matrix.GetLength(1); checkRow--, checkCol++)
+            string sequence = matrix[row, 0];
+            int count = 1;
+
+            for (int checkRow = row - 1, checkCol = 1; checkRow >= 0 && checkCol < diagonal; checkRow--, checkCol++)
             {
-                if (matrix[checkRow, checkCol] == currentSequence[currentSequence.Count - 1])
+                bool isLastIndex = (checkRow == 0 || checkCol == colLen - 1);
+
+                if (sequence == matrix[checkRow, checkCol] && !isLastIndex)
                 {
-                    currentSequence.Add(matrix[checkRow, checkCol]);
+                    count++;
                 }
-                if (matrix[checkRow, checkCol] != currentSequence[currentSequence.Count - 1] || checkCol == matrix.GetLength(1) - 1 || checkRow == 0)
+                else
                 {
-                    if (bestSequence.Count < currentSequence.Count)
+                    if (count > bestCount)
                     {
-                        bestSequence = currentSequence;
+                        bestSequence = sequence;
+                        bestCount = count;
                     }
-                    currentSequence = new List<string>();
-                    currentSequence.Add(matrix[checkRow, checkCol]);
-                }
-            }
-        }
-        /* right half */
-        for (int col = 1; col < matrix.GetLength(1); col++)
-        {
-            currentSequence = new List<string>();
-            currentSequence.Add(matrix[matrix.GetLength(0) - 1, col]);
-            for (int checkRow = matrix.GetLength(0) - 2, checkCol = col + 1;
-                 checkRow >= 0 && checkCol < matrix.GetLength(1); checkRow--, checkCol++)
-            {
-                if (matrix[checkRow, checkCol] == currentSequence[currentSequence.Count - 1])
-                {
-                    currentSequence.Add(matrix[checkRow, checkCol]);
-                }
-                if (matrix[checkRow, checkCol] != currentSequence[currentSequence.Count - 1] || checkCol == matrix.GetLength(1) - 1 || checkRow == 0)
-                {
-                    if (bestSequence.Count < currentSequence.Count)
+
+                    if (!isLastIndex)
                     {
-                        bestSequence = currentSequence;
+                        sequence = matrix[checkRow, checkCol];
+                        count = 1;
                     }
-                    currentSequence = new List<string>();
-                    currentSequence.Add(matrix[checkRow, checkCol]);
                 }
             }
         }
 
-        Console.Write("Longest sequence: ");
-        foreach (var item in bestSequence)
+        /* right half */
+        for (int col = 1; col < colLen; col++)
         {
-            Console.Write(item + " ");
+            string sequence = matrix[rowLen - 1, col];
+            int count = 1;
+
+            for (int checkRow = rowLen - 2, checkCol = col + 1; checkRow >= 0 && checkCol < diagonal; checkRow--, checkCol++)
+            {
+                bool isLastIndex = (checkRow == 0 || checkCol == colLen - 1);
+
+                if (sequence == matrix[checkRow, checkCol])
+                {
+                    count++;
+
+                    if (isLastIndex && count > bestCount)
+                    {
+                        bestSequence = sequence;
+                        bestCount = count;
+                    }
+                }
+                else
+                {
+                    if (count > bestCount)
+                    {
+                        bestSequence = sequence;
+                        bestCount = count;
+                    }
+
+                    if (!isLastIndex)
+                    {
+                        sequence = matrix[checkRow, checkCol];
+                        count = 1;
+                    }
+                }
+            }
         }
+
+        PrintLongestSequence(bestSequence, bestCount);
+    }
+
+    public static void PrintLongestSequence(string sequence, int count)
+    {
+        Console.Write("Longest sequence is: ");
+
+        for (int i = 0; i < count; i++)
+        {
+            Console.Write("{0} ", sequence);
+        }
+
         Console.WriteLine();
     }
 }
