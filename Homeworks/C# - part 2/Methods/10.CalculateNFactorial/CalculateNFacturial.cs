@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Numerics;
+//using System.Numerics;
 
-class CalculateNFacturial
+public class CalculateNFacturial
 {
     //static void Main()
     //{
@@ -32,9 +32,10 @@ class CalculateNFacturial
     //    return result;
     //}
 
-    static void Main()
+    internal static void Main()
     {
         int n = 0;
+
         do
         {
             Console.WriteLine("Enter a N from 0 to 100: ");
@@ -45,40 +46,43 @@ class CalculateNFacturial
         Print(Multiply(n));
     }
 
-    static List<int> Multiply(int n)
+    public static List<int> Multiply(int n)
     {
-        List<int> array = new List<int>();
+        List<int> arr = new List<int>();
+
         if (n == 0)
         {
-            return array;
+            return arr;
         }
-        array.Add(1);
+
+        arr.Add(1);
         int result = 0;
         int carry = 0;
 
         for (int i = 2; i <= n; i++)
         {
-            for (int j = 0; j < array.Count; j++)
+            for (int j = 0; j < arr.Count; j++)
             {
-                result = ((array[j] * i) + carry) % 10;
-                carry = ((array[j] * i) + carry) / 10;
-                array[j] = result;
+                result = ((arr[j] * i) + carry) % 10;
+                carry = ((arr[j] * i) + carry) / 10;
+                arr[j] = result;
             }
             while ((carry != 0))
             {
-                array.Add(carry % 10);
+                arr.Add(carry % 10);
                 carry = carry / 10;
             }
         }
-        return array;
+        return arr;
     }
 
-    static void Print(List<int> array)
+    static void Print(List<int> arr)
     {
-        for (int i = array.Count - 1; i > -1; i--)
+        for (int i = arr.Count - 1; i > -1; i--)
         {
-            Console.Write(array[i]);
+            Console.Write(arr[i]);
         }
+
         Console.WriteLine();
     }
 }

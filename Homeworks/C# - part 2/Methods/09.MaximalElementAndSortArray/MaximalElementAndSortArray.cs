@@ -1,72 +1,83 @@
 ﻿using System;
+using System.Linq;
 
-class MaximalElementAndSortArray
+public class MaximalElementAndSortArray
 {
-    static void Main()
+    internal static void Main()
     {
         string input = Console.ReadLine();
-        int[] intArray = StringToIntArray(input);
-        int maxElement = GetMaxElement(intArray, 0);
-        intArray = SortMethod(intArray);
+        int[] nums = ConvertStrToIntArray(input);
+        int maxElement = GetMaxElement(nums, 0);
+
         Console.WriteLine("Max element in that array is: {0}.", maxElement);
-        PrintIntArray(intArray);
+        nums = Sort(nums, true);
+
+        Console.WriteLine("This is the sorted array: ");
+        PrintArray(nums);
     }
 
-    public static int[] StringToIntArray(string input)
+    public static int[] ConvertStrToIntArray(string input)
     {
-        string[] subString = input.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
-        int[] intArray = new int[subString.Length];
+        string[] substr = input.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
+        int[] nums = new int[substr.Length];
 
-        for (int i = 0; i < subString.Length; i++)
+        for (int i = 0, len = substr.Length; i < len; i++)
         {
-            intArray[i] = int.Parse(subString[i]);
+            nums[i] = int.Parse(substr[i]);
         }
-        return intArray;
+
+        return nums;
     }
 
-    public static int GetMaxElement(int[] array, int index)
+    public static int GetMaxElement(int[] arr, int index)
     {
-        int maxElement = array[index];
-        for (int i = index + 1; i < array.Length; i++)
+        int maxElement = arr[index];
+
+        for (int i = index + 1, len = arr.Length; i < len; i++)
         {
-            if (array[i] > maxElement)
+            if (arr[i] > maxElement)
             {
-                maxElement = array[i];
+                maxElement = arr[i];
             }
         }
+
         return maxElement;
     }
 
-    static int[] SortMethod(int[] intArray)
+    public static int[] Sort(int[] nums, bool isAscending)
     {
-        int temp = 0;
+        int num = 0;
         int maxIndex = 0;
         int maxElement = 0;
-        for (int i = 0; i < intArray.Length; i++)
+
+        for (int i = 0, len = nums.Length; i < len; i++)
         {
-            maxElement = GetMaxElement(intArray, i);
-            for (int j = 0; j < intArray.Length; j++)
+            maxElement = GetMaxElement(nums, i);
+
+            for (int j = i; j < len; j++)
             {
-                if (intArray[j] == maxElement)
+                if (nums[j] == maxElement)
                 {
                     maxIndex = j;
                 }
             }
-            temp = intArray[i];
-            intArray[i] = intArray[maxIndex];
-            intArray[maxIndex] = temp;
+
+            num = nums[i];
+            nums[i] = nums[maxIndex];
+            nums[maxIndex] = num;
         }
-        return intArray;
+
+        return isAscending ? nums : nums.Reverse().ToArray();
     }
 
-    static void PrintIntArray(int[] intArray)
+    public static void PrintArray(int[] nums)
     {
-        Console.WriteLine();
-        Console.WriteLine("This is the sorted array: ");
-        foreach (var item in intArray)
+        int len = nums.Length;
+
+        for (int i = len - 1; i >= 0; i--)
         {
-            Console.Write(item);
-            if (item != intArray[intArray.Length - 1])
+            Console.Write(nums[i]);
+            if (i != 0)
             {
                 Console.Write(", ");
             }
@@ -75,6 +86,7 @@ class MaximalElementAndSortArray
                 Console.Write(".");
             }
         }
+
         Console.WriteLine();
     }
 }

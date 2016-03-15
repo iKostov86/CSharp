@@ -1,32 +1,29 @@
 ﻿using System;
 
-class FirstBiggerThanNeighbors
+public class FirstBiggerThanNeighbors
 {
-    static void Main()
+    internal static void Main()
     {
-        int[] array = new int[] { 1, 2, 3, 3, 4, 6, 5 };
-        bool result = false;
-        foreach (var position in array)
+        int[] arr = new int[] { 1, 2, 3, 3, 4, 6, 15, 19 };
+
+        for (int pos = 1, len = arr.Length - 1; pos < len; pos++)
         {
-            result = CheckElement(array, position);
-            if (result == true)
+            if (CheckElement(arr, pos))
             {
-                Console.WriteLine("The index of the first bigger is: {0}", position);
-                Console.WriteLine();
+                Console.WriteLine("The larger number is: {0}", arr[pos]);
+                Console.WriteLine("The index of the first number in array that is bigger then its neighbors is: {0}{1}", pos, Environment.NewLine);
                 return;
             }
         }
     }
 
-    static bool CheckElement(int[] array, int position)
+    public static bool CheckElement(int[] arr, int pos)
     {
-        if (position > 1 && position < array.Length)
+        if (arr[pos - 1] < arr[pos] && arr[pos] > arr[pos + 1])
         {
-            if (array[position - 2] < array[position - 1] && array[position - 1] > array[position])
-            {
-                return true;
-            }
+            return true;
         }
+
         return false;
     }
 }

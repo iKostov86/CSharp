@@ -1,21 +1,22 @@
 ﻿using System;
 
-class HelloName
+public class HelloName
 {
-    static void Main()
+    internal static void Main()
     {
-        string name = "";
-        while (name == "")
+        string name = string.Empty;
+
+        while (name == string.Empty)
         {
             Console.WriteLine("Please, enter your name!");
             name = Console.ReadLine();
         }
-        Console.WriteLine();
-        PrintName(name);
+
+        PrintTextToConsole(name);
     }
 
-    static void PrintName(string print)
+    static void PrintTextToConsole(string text)
     {
-        Console.WriteLine("Hello, " + print + "!");
+        Console.WriteLine("Hello, " + text + "!");
     }
 }

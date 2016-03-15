@@ -1,68 +1,74 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-class SumOfTwoBigIntegers
+public class SumOfTwoBigIntegers
 {
-    static void Main()
+    internal static void Main()
     {
-        string num1 = Console.ReadLine();
-        string num2 = Console.ReadLine();
-        int[] arrayNum1 = new int[num1.Length];
-        int[] arrayNum2 = new int[num2.Length];
+        string firstNumAsStr = Console.ReadLine();
+        string secondNumAsStr = Console.ReadLine();
+        int[] firstNumAsArr = new int[firstNumAsStr.Length];
+        int[] secondNumAsArr = new int[secondNumAsStr.Length];
 
-        ToArray(num1, arrayNum1);
-        ToArray(num2, arrayNum2);
+        ConvertStrToIntArray(firstNumAsStr, firstNumAsArr);
+        ConvertStrToIntArray(secondNumAsStr, secondNumAsArr);
 
-        int[] arrayTotal = new int[Math.Max(num1.Length, num2.Length) + 1];
-        if (arrayNum1.Length > arrayNum2.Length)
+        int resultLen = Math.Max(firstNumAsStr.Length, secondNumAsStr.Length) + 1;
+        int[] resultArr = new int[resultLen];
+
+        Array.Copy(firstNumAsArr, resultArr, firstNumAsArr.Length);
+        Sum(resultArr, secondNumAsArr);
+
+        if (resultArr[resultLen - 1] == 0)
         {
-            Array.Copy(arrayNum2, arrayTotal, arrayNum2.Length);
-            SumMethod(arrayTotal, arrayNum1);
+            resultLen -= 1;
         }
-        else
-        {
-            Array.Copy(arrayNum1, arrayTotal, arrayNum1.Length);
-            SumMethod(arrayTotal, arrayNum2);
-        }
-        Console.WriteLine();
-        int j = 1;
-        if (arrayTotal[arrayTotal.Length - 1] == 0)
-        {
-            j++;
-        }
-        for (int i = arrayTotal.Length - j; i >= 0; i--)
-        {
-            Console.Write(arrayTotal[i]);
-        }
-        Console.WriteLine();
+
+        Print(resultArr, resultLen);
     }
 
-    static void SumMethod(int[] arrayTotal, int[] arrayOne)
+    public static void Sum(int[] resultArr, int[] arr)
     {
+        int sum = 0;
         int oneOnMind = 0;
-        for (int i = 0; i < arrayOne.Length; i++)
+        int len = arr.Length;
+
+        for (int i = 0; i < len; i++)
         {
-            if ((arrayTotal[i] + arrayOne[i] + oneOnMind) > 9)
+            sum = resultArr[i] + arr[i] + oneOnMind;
+
+            if (sum > 9)
             {
-                arrayTotal[i] = (arrayTotal[i] + arrayOne[i] + oneOnMind) % 10;
+                resultArr[i] = sum % 10;
                 oneOnMind = 1;
             }
             else
             {
-                arrayTotal[i] = arrayTotal[i] + arrayOne[i] + oneOnMind;
+                resultArr[i] = sum;
                 oneOnMind = 0;
             }
         }
-        if (oneOnMind == 1) arrayTotal[arrayTotal.Length - 1] = 1;
+
+        if (oneOnMind == 1)
+        {
+            resultArr[len] += 1;
+        }
     }
 
-    static void ToArray(string num, int[] arrayNum)
+    public static void ConvertStrToIntArray(string numAsStr, int[] numAsArr)
     {
-        for (int i = 0, j = num.Length - 1; j >= 0; i++, j--)
+        for (int i = 0, len = numAsStr.Length; i < len; i++)
         {
-            arrayNum[i] = num[j] - '0';
+            numAsArr[i] = numAsStr[len - i - 1] - '0';
         }
+    }
+
+    public static void Print(int[] resultArr, int resultLen)
+    {
+        for (int i = resultLen - 1; i >= 0; i--)
+        {
+            Console.Write(resultArr[i]);
+        }
+
+        Console.WriteLine();
     }
 }

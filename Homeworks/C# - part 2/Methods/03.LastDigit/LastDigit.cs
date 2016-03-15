@@ -1,37 +1,37 @@
 ﻿using System;
 
-class LastDigit
+public class LastDigit
 {
-    static void Main()
+    internal enum Digits
+    {
+        zero,
+        one,
+        two,
+        three,
+        four,
+        five,
+        six,
+        seven,
+        eight,
+        nine
+    };
+
+    internal static void Main()
     {
         int number = int.Parse(Console.ReadLine());
-        Console.WriteLine(LastDigitMethod(number % 10));
+        PrintLastDigit(number);
     }
 
-    static string LastDigitMethod(int digit)
+    public static void PrintLastDigit(int number)
     {
-        switch (digit)
+        int digit = number % 10;
+
+        foreach (var item in Enum.GetValues(typeof(Digits)))
         {
-            case 0:
-                return "zero";
-            case 1:
-                return "one";
-            case 2:
-                return "two";
-            case 3:
-                return "three";
-            case 4:
-                return "four";
-            case 5:
-                return "five";
-            case 6:
-                return "six";
-            case 7:
-                return "seven";
-            case 8:
-                return "eight";
-            default:
-                return "nine";
+            if (digit == (int)item)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }

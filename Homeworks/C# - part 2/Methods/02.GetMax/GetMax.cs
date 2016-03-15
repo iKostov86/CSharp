@@ -1,27 +1,23 @@
 ﻿using System;
 
-class GetMax
+public class GetMax
 {
-    static void Main()
+    internal static void Main()
     {
-        int num1 = int.Parse(Console.ReadLine());
-        int num2 = int.Parse(Console.ReadLine());
-        int num3 = int.Parse(Console.ReadLine());
-        num2 = GetMaxMethod(num2, num3);
-        num1 = GetMaxMethod(num1, num2);
-        Console.WriteLine();
-        Console.WriteLine(num1);
+        Console.WriteLine("Enter three numbers to get bigger of them: ");
+        int firstNum = int.Parse(Console.ReadLine());
+        int secondNum = int.Parse(Console.ReadLine());
+        int thirdNum = int.Parse(Console.ReadLine());
+
+        secondNum = GetMaxBetweenTwoNumbers(secondNum, thirdNum);
+        firstNum = GetMaxBetweenTwoNumbers(firstNum, secondNum);
+
+        Console.WriteLine("The bigger number is: ");
+        Console.WriteLine(firstNum);
     }
 
-    static int GetMaxMethod(int numA, int numB)
+    public static int GetMaxBetweenTwoNumbers(int numA, int numB)
     {
-        if (numA > numB)
-        {
-            return numA;
-        }
-
-        return numB;
-
-        //return numA > numB ? numA : numB;
+        return numA > numB ? numA : numB;
     }
 }

@@ -3,57 +3,64 @@ using System.Collections.Generic;
 
 public class ReverseTheDigits
 {
-    static void Main()
+    internal static void Main()
     {
-        decimal givenNumber = -219M;
-        ReverseNumber(givenNumber);
+        decimal givenNumber = -21559M;
+        //int givenNumber = 219;
+        ReverseDigits(givenNumber);
     }
 
-    public static void ReverseNumber(int number)
+    public static void ReverseDigits(int num)
     {
-        int tempNumber = 0;
-        while (number > 0)
+        int result = 0;
+
+        while (num > 0)
         {
-            tempNumber = (tempNumber * 10) + (number % 10);
-            number /= 10;
+            result = (result * 10) + (num % 10);
+            num /= 10;
         }
-        PrintMethod(tempNumber);
+
+        Print(result);
     }
 
-    public static void ReverseNumber(decimal decNumber)
+    public static void ReverseDigits(decimal num)
     {
-        string strNumber = decNumber.ToString();
-        ReverseNumber(strNumber);
+        string numAsStr = num.ToString();
+        ReverseDigits(numAsStr);
     }
 
-    public static void ReverseNumber(string strNumber)
+    public static void ReverseDigits(string numAsStr)
     {
-        List<char> reversedNumber = new List<char>();
         int sign = 0;
-        if (strNumber[0] == '-')
+        char negativeSign = '-';
+        char[] reversedNum = new char[numAsStr.Length];
+
+        if (numAsStr[0] == negativeSign)
         {
             sign = 1;
-            reversedNumber.Add('-');
-        }
-        for (int i = strNumber.Length - 1; i >= sign; i--)
-        {
-            reversedNumber.Add(strNumber[i]);
+            reversedNum[0] = negativeSign;
         }
 
-        PrintMethod(reversedNumber);
+        for (int i = sign, len = numAsStr.Length; i < len; i++)
+        {
+            reversedNum[len - i] = (numAsStr[i]);
+        }
+
+        Print(reversedNum);
     }
 
-    public static void PrintMethod(int forPrint)
+    public static void Print(int forPrint)
     {
         Console.WriteLine(forPrint);
     }
 
-    public static void PrintMethod(List<char> forPrint)
+    public static void Print(char[] forPrint)
     {
         foreach (var item in forPrint)
         {
             Console.Write(item);
         }
+
         Console.WriteLine();
     }
 }
