@@ -50,29 +50,30 @@ public class CalculateNFacturial
     {
         List<int> arr = new List<int>();
 
-        if (n == 0)
+        if (n != 0)
         {
-            return arr;
+            int result = 0;
+            int carry = 0;
+
+            arr.Add(1);
+
+            for (int i = 2; i <= n; i++)
+            {
+                for (int j = 0; j < arr.Count; j++)
+                {
+                    result = ((arr[j] * i) + carry) % 10;
+                    carry = ((arr[j] * i) + carry) / 10;
+                    arr[j] = result;
+                }
+
+                while ((carry != 0))
+                {
+                    arr.Add(carry % 10);
+                    carry = carry / 10;
+                }
+            }
         }
 
-        arr.Add(1);
-        int result = 0;
-        int carry = 0;
-
-        for (int i = 2; i <= n; i++)
-        {
-            for (int j = 0; j < arr.Count; j++)
-            {
-                result = ((arr[j] * i) + carry) % 10;
-                carry = ((arr[j] * i) + carry) / 10;
-                arr[j] = result;
-            }
-            while ((carry != 0))
-            {
-                arr.Add(carry % 10);
-                carry = carry / 10;
-            }
-        }
         return arr;
     }
 
