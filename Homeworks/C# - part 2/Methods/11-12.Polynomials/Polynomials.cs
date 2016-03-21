@@ -146,30 +146,24 @@ public class Polynomials
 
     public static void PrintPolynomial(int[] polynomial)
     {
-        for (int i = polynomial.Length - 1; i >= 0; i--)
+        for (int i = polynomial.Length - 1; i > 0; i--)
         {
-            char positiveSign = '+';
-            char negativeSign = '-';
             char sign = new char();
 
-            if (i != 0)
+            // Math.Sign(polynomial[i])
+            if (polynomial[i] < 0)
             {
-                if (Math.Sign(polynomial[i]) == 1)
-                {
-                    sign = positiveSign;
-                }
-                else
-                {
-                    sign = negativeSign;
-                }
-
-                Console.Write("{0}x^{1} + ", polynomial[i], i);
-                //Console.Write("{0}x^{1} {2} ", polynomial[i], i, sign);
+                sign = '-';
+                polynomial[i] *= -1;
             }
             else
             {
-                Console.WriteLine(polynomial[i]);
+                sign = '+';
             }
+
+            Console.Write("{0}x^{1} {2} ", polynomial[i], i, sign);
         }
+
+        Console.WriteLine(polynomial[0]);
     }
 }

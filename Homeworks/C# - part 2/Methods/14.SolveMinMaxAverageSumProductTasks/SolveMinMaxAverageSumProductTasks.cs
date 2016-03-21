@@ -1,18 +1,15 @@
 ﻿using System;
 
-class SolveMinMaxAverageSumProductTasks
+public class SolveMinMaxAverageSumProductTasks
 {
-    static void Main()
+    internal static void Main()
     {
-        int[] array = new int[] { 2, -4, 7, 2, 9, 1, 7, 7, 7, 2 };
+        Console.WriteLine("2, -4, 7, 2, 9, 1, 7, 7, 7, 2");
+        int[] arr = new int[] { 2, -4, 7, 2, 9, 1, 7, 7, 7, 2 };
 
         Console.WriteLine("*****************************");
-        Console.WriteLine("Enter your choice for task:  \r\n");
-        Console.WriteLine("(1) to find Min, ");
-        Console.WriteLine("(2) to find Max, ");
-        Console.WriteLine("(3) to find Average, ");
-        Console.WriteLine("(4) to find Sum, ");
-        Console.WriteLine("(5) to find Product.");
+        Console.WriteLine(
+            "Enter your choice for task: {0}(1) -> to find Min {0}(2) -> to find Max {0}(3) -> to find Average {0}(4) -> to find Sum {0}(5) -> to find Product", Environment.NewLine);
         Console.WriteLine("*****************************");
         Console.Write("-> ");
 
@@ -21,104 +18,118 @@ class SolveMinMaxAverageSumProductTasks
         switch (choice)
         {
             case 1:
-                //FindMin(array);
-                Console.WriteLine(FindMin(6, 7, 5, 4, 3, 0, 5, 1, 0, 9));
-                Console.WriteLine(FindMin());
-                Console.WriteLine(FindMin(3, 5, 6, 7, 8, 9, 23));
+                int min = FindMin(arr);
+
+                PrintResult(min, "The min value is: ");
+
                 break;
             case 2:
-                FindMax(array);
+                int max = FindMax(arr);
+
+                PrintResult(max, "The max value is: ");
+
                 break;
             case 3:
-                FindAverage(array);
+                int average = FindAverage(arr);
+
+                PrintResult(average, "The average value is: ");
+
                 break;
             case 4:
-                FindSum(array);
+                int sum = FindSum(arr);
+
+                PrintResult(sum, "The sum of elements is: ");
+
                 break;
             case 5:
-                FindProduct(array);
+                int product = FindProduct(arr);
+
+                PrintResult(product, "The product of elements is: ");
+
                 break;
         }
     }
 
-    //static void FindMin(params int[] array)
-    static int FindMin(params int[] array)
+    public static int FindMin(params int[] arr)
     {
-        if (array.Length == 0)
-        {
-            return int.MinValue;
-        }
-        int min = array[0];
+        int len = arr.Length;
+        int min = arr[0];
 
-        for (int i = 1; i < array.Length; i++)
+        if (len > 0)
         {
-            if (array[i] < min)
+            for (int i = 1; i < len; i++)
             {
-                min = array[i];
+                if (arr[i] < min)
+                {
+                    min = arr[i];
+                }
+            }
+
+            return min;
+        }
+
+        return int.MinValue;
+    }
+
+    public static int FindMax(params int[] arr)
+    {
+        int len = arr.Length;
+        int max = arr[0];
+
+        for (int i = 1; i < len; i++)
+        {
+            if (arr[i] > max)
+            {
+                max = arr[i];
             }
         }
 
-        //PrintResult(min, "The min value is: ");
-        return min;
+        return max;
     }
 
-    static void FindMax(params int[] array)
+    public static int FindAverage(params int[] arr)
     {
-        int max = array[0];
-
-        for (int i = 1; i < array.Length; i++)
-        {
-            if (array[i] > max)
-            {
-                max = array[i];
-            }
-        }
-
-        PrintResult(max, "The max value is: ");
-    }
-
-    static void FindAverage(params int[] array)
-    {
+        int len = arr.Length;
         int average = new int();
 
-        foreach (var item in array)
+        foreach (var item in arr)
         {
             average += item;
         }
 
-        average /= array.Length;
+        average /= len ;
 
-        PrintResult(average, "The average value is: ");
+        return average;
     }
 
-    static void FindSum(params int[] array)
+    public static int FindSum(params int[] arr)
     {
+        int len = arr.Length;
         int sum = new int();
 
-        for (int i = 0; i < array.Length; i++)
+        for (int i = 0; i < len; i++)
         {
-            sum += array[i];
+            sum += arr[i];
         }
 
-        PrintResult(sum, "The sum of elements is: ");
+        return sum;
     }
 
-    static void FindProduct(params int[] array)
+    public static int FindProduct(params int[] arr)
     {
-        int product = array[0];
+        int len = arr.Length;
+        int product = arr[0];
 
-        for (int i = 1; i < array.Length; i++)
+        for (int i = 1; i < len; i++)
         {
-            product *= array[i];
+            product *= arr[i];
         }
 
-        PrintResult(product, "The product of elements is: ");
+        return product;
     }
 
-    static void PrintResult(int number, string text)
+    public static void PrintResult(int number, string text)
     {
-        Console.WriteLine();
-        Console.WriteLine(text + number);
-        Console.WriteLine();
+        Console.WriteLine("{1}{0}{1}", text + number, Environment.NewLine);
     }
 }

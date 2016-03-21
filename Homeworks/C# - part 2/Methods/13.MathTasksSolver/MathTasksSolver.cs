@@ -1,110 +1,153 @@
 ﻿using System;
+using System.Linq;
 using System.Globalization;
 using System.Threading;
 
-class MathTasksSolver
+public class MathTasksSolver
 {
-    static void Main()
+    internal static void Main()
     
     {
+        Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
         TaskChoice();
     }
 
-    static void TaskChoice()
+    public static void TaskChoice()
     {
-        Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-
         Console.WriteLine(
-            "Please enter your choice: \r\n(1 to reverse digit, 2 to average calculation, 3 to solving linear equation) \r\n");
+            "Please enter your choice: {0}1 -> to reverse digit {0}2 -> to average calculation {0}3 -> to solving linear equation", Environment.NewLine);
         int choice = int.Parse(Console.ReadLine());
 
         switch (choice)
         {
             case 1:
-                Console.WriteLine("Enter a decimal number: ");
-                decimal number = decimal.Parse(Console.ReadLine());
-                ReverseDigits(number);
+                decimal num = GetDigit();
+
+                ReverseDigits(num);
+
                 break;
             case 2:
-                Console.WriteLine("Enter a length of sequence: ");
-                int sequenceLength = int.Parse(Console.ReadLine());
-                int[] sequenceArray = new int[sequenceLength];
-                Console.WriteLine("Enter integers of sequence: ");
-                for (int i = 0; i < sequenceLength; i++)
-                {
-                    sequenceArray[i] = int.Parse(Console.ReadLine());
-                }
-                AverageCalculationOfNumbersSequence(sequenceArray, sequenceLength);
+                int sequenceLen = GetSequenceLength();
+                int[] sequenceArr = GetSequence(sequenceLen);
+
+                AverageCalculationSequenceOfNumbers(sequenceArr, sequenceLen);
+
                 break;
             case 3:
-                int coefficientA = new int();
-                int coefficientB = new int();
+                int[] coefficients = GetLinearEquationCoefficients();
 
-                Console.WriteLine("Please eneter A and B for equation A.x + b = 0.");
-                Console.Write("A = ");
-                coefficientA = int.Parse(Console.ReadLine());
-                Console.WriteLine();
-                Console.Write("B = ");
-                coefficientB = int.Parse(Console.ReadLine());
-                Console.WriteLine();
-                SolvingLinearEquation(coefficientA, coefficientB);
+                SolvingLinearEquation(coefficients);
+
                 break;
             default:
                 break;
         }
     }
-    static void ReverseDigits(decimal number)
+
+    public static decimal GetDigit()
     {
-        if (number < 0)
+        Console.WriteLine("Enter a decimal number: ");
+
+        return decimal.Parse(Console.ReadLine());
+    }
+
+    public static int GetSequenceLength()
+    {
+        Console.WriteLine("Enter a length of sequence: ");
+
+        return int.Parse(Console.ReadLine());
+    }
+
+    public static int[] GetSequence(int sequenceLen)
+    {
+        Console.WriteLine("Enter the sequence: ");
+
+        string sequence = Console.ReadLine();
+        int[] sequenceArr = sequence
+                                .Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries)
+                                .Select(x => int.Parse(x))
+                                .ToArray();
+
+        return sequenceArr;
+    }
+
+    public static int[] GetLinearEquationCoefficients()
+    {
+        int[] coefficients = new int[2];
+
+        Console.WriteLine("Please enter A and B for equation a.x + b = 0");
+
+        Console.Write("A = ");
+        coefficients[1] = int.Parse(Console.ReadLine());
+
+        Console.Write("B = ");
+        coefficients[0] = int.Parse(Console.ReadLine());
+
+        return coefficients;
+    }
+
+    public static void ReverseDigits(decimal num)
+    {
+        if (num < 0)
         {
-            Console.WriteLine("Negative number!");
-            return;
+            Console.WriteLine("Can't reverse negative number!");
         }
         else
         {
-            ReverseTheDigits.ReverseNumber(number);
-            //to do: reverse
+            decimal reversedNum = num
+                                    .ToString()
+                                    .Reverse()
+                                    .Aggregate(0m, (x, y) => x * 10 + y - '0');
+
+            Console.WriteLine("{0} -> {1}", num, reversedNum);
         }
     }
 
-    static void AverageCalculationOfNumbersSequence(int[] sequenceArray, int sequenceLength)
+    public static void AverageCalculationSequenceOfNumbers(int[] sequenceArr, int sequenceLen)
     {
         int average = 0;
-        if (sequenceLength == 0)
+
+        if (sequenceLen == 0)
         {
-            Console.WriteLine("Empty sequence!");
-            return;
+            Console.WriteLine("The sequence is empty!");
         }
         else
         {
-            foreach (var item in sequenceArray)
+            foreach (var item in sequenceArr)
             {
                 average += item;
             }
-            average /= sequenceLength;
+
+            average /= sequenceLen;
+
+            Console.WriteLine("The average of a given sequence is: {0}", average);
         }
-        Console.WriteLine("The average of a given sequence is: {0}", average);
+
     }
 
-    static void SolvingLinearEquation(int coefficientA, int coefficientB)
+    public static void SolvingLinearEquation(int[] coefficients)
     {
-        int x = new int();
-        if (coefficientA == 0)
+        decimal x = new int();
+        int zeroCoefficient = coefficients[0];
+        int firstCoefficient = coefficients[1];
+
+        if (firstCoefficient == 0)
         {
-            Console.WriteLine("'A' is zero!");
-            return;
+            Console.WriteLine("'A' can't be zero!");
         }
         else
         {
-            if (coefficientB == 0)
+            if (zeroCoefficient == 0)
             {
-                x = 0;
+                x = 0m;
             }
             else
             {
-                x = -coefficientB / coefficientA;
+                x = -zeroCoefficient / (decimal)firstCoefficient;
             }
+
+            Console.WriteLine("x = {0}", x);
         }
-        Console.WriteLine("x = {0}", x);
+
     }
 }

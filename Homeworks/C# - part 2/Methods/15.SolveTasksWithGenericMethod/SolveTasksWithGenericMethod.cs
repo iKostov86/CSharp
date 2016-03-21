@@ -1,11 +1,11 @@
 ﻿using System;
 
-class SolveTasksWithGenericMethod
+public class SolveTasksWithGenericMethod
 {
-    static void Main()
+    internal static void Main()
     {
-        decimal[] array = new decimal[] { 2m, -4m, 7m, 2m, 9m, 1m, 7m, 7m, 7m, 2m, 3m };
-        double[] array2 = new double[] { 2, -4, 7, 2, 9, 1, 7, 7, 7, 2, 3 };
+        decimal[] firstArr = new decimal[] { 2m, -4m, 7m, 2m, 9m, 1m, 7m, 7m, 7m, 2m, 3m };
+        double[] secondArr = new double[] { 2, -4, 7, 2, 9, 1, 7, 7, 7, 2, 3 };
 
         Console.WriteLine("*****************************");
         Console.WriteLine("Enter your choice for task:  \r\n");
@@ -18,120 +18,140 @@ class SolveTasksWithGenericMethod
         Console.Write("-> ");
 
         int choice = int.Parse(Console.ReadLine());
+        dynamic result = null;
+        string text = string.Empty;
 
         switch (choice)
         {
             case 1:
-                //FindMin(1.1, 2, 3, 4, 5);
-                //FindMin(array);
-                Console.WriteLine(FindMin(1.1, 2, 3, 4, 5));
-                Console.WriteLine(FindMin(array));
-                Console.WriteLine(FindMin(array2));
-                Console.WriteLine(FindMin(new int[0]));
+                result = FindMin(firstArr);
+                text = "The min value is: ";
                 break;
             case 2:
-                FindMax(1.1, 2, 3, 4, 5);
-                FindMax(array);
-                FindMax(array2);
+                result = FindMax(firstArr);
+                text = "The max value is: ";
                 break;
             case 3:
-                FindAverage(1.1, 2, 3, 4, 5);
-                FindAverage(array);
-                FindAverage(array2);
+                result = FindAverage(firstArr);
+                text = "The average value is: ";
                 break;
             case 4:
-                FindSum(1.1, 2, 3, 4, 5);
-                FindSum(array);
-                FindSum(array2);
+                result = FindSum(firstArr);
+                text = "The sum of elements is: ";
                 break;
             case 5:
-                FindProduct(1.1, 2, 3, 4, 5);
-                FindProduct(array);
-                FindProduct(array2);
+                result = FindProduct(firstArr);
+                text =  "The product of elements is: ";
+                break;
+            default:
                 break;
         }
+
+        PrintResult(result, text);
     }
 
-
-    static dynamic FindMin<T>(params T[] array)
+    public static T FindMin<T>(params T[] arr)
     {
-        if (array.Length <= 0)
+        int len = arr.Length;
+
+        if (len <= 0)
         {
-            return "Not a number!";
+            throw new ArgumentException("No arguments are presented.");
         }
 
-        dynamic min = array[0];
+        dynamic min = arr[0];
 
-        for (int i = 1; i < array.Length; i++)
+        for (int i = 1; i < len; i++)
         {
-            if (array[i] < min)
+            if (arr[i] < min)
             {
-                min = array[i];
+                min = arr[i];
             }
         }
 
-        //PrintResult(min, "The min value is: ");
         return min;
     }
 
-    static void FindMax<T>(params T[] array)
+    public static T FindMax<T>(params T[] arr)
     {
-        dynamic max = array[0];
+        int len = arr.Length;
+        dynamic max = arr[0];
 
-        for (int i = 1; i < array.Length; i++)
+        if (len <= 0)
         {
-            if (array[i] > max)
+            throw new ArgumentException("No arguments are presented.");
+        }
+
+        for (int i = 1; i < len; i++)
+        {
+            if (arr[i] > max)
             {
-                max = array[i];
+                max = arr[i];
             }
         }
 
-        PrintResult(max, "The max value is: ");
+        return max;
     }
 
-    static void FindAverage<T>(params T[] array)
+    public static T FindAverage<T>(params T[] arr)
     {
+        int len = arr.Length;
         dynamic average = new int();
 
-        foreach (var item in array)
+        if (len <= 0)
+        {
+            throw new ArgumentException("No arguments are presented.");
+        }
+
+        foreach (var item in arr)
         {
             average += item;
         }
 
-        average /= (dynamic)array.Length;
+        average /= (dynamic)len;
 
-        PrintResult(average, "The average value is: ");
+        return average;
     }
 
-    static void FindSum<T>(params T[] array)
+    public static T FindSum<T>(params T[] arr)
     {
+        int len = arr.Length;
         dynamic sum = new int();
 
-        for (int i = 0; i < array.Length; i++)
+        if (len <= 0)
         {
-            sum += array[i];
+            throw new ArgumentException("No arguments are presented.");
         }
 
-        PrintResult(sum, "The sum of elements is: ");
-    }
-
-    static void FindProduct<T>(params T[] array)
-    {
-        dynamic product = array[0];
-
-        for (int i = 1; i < array.Length; i++)
+        for (int i = 0; i < len; i++)
         {
-            product *= array[i];
+            sum += arr[i];
         }
 
-        PrintResult(product, "The product of elements is: ");
+        return sum;
     }
 
-    static void PrintResult<T>(T number, string text)
+    public static T FindProduct<T>(params T[] arr)
     {
-        Console.WriteLine();
-        Console.WriteLine(text + number);
-        Console.WriteLine();
+        int len = arr.Length;
+        dynamic product = arr[0];
+
+        if (len <= 0)
+        {
+            throw new ArgumentException("No arguments are presented.");
+        }
+
+        for (int i = 1; i < len; i++)
+        {
+            product *= arr[i];
+        }
+
+        return product;
+    }
+
+    public static void PrintResult<T>(T num, string text)
+    {
+        Console.WriteLine("{1}{0}{1}", text + num, Environment.NewLine);
     }
 
 }
