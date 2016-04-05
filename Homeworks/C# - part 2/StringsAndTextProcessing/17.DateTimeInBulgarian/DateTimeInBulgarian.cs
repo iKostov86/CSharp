@@ -5,20 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
 
-class DateTimeInBulgarian
+public class DateTimeInBulgarian
 {
-    static void Main()
+    internal static void Main()
     {
         string inputDate = "14.03.2015 12:15:15";
-        DateTime myDate = DateTime.ParseExact(inputDate, "dd.MM.yyyy hh:mm:ss", CultureInfo.InvariantCulture);
-        myDate = myDate.AddHours(6.5);
+        DateTime date = DateTime.ParseExact(inputDate, "dd.MM.yyyy hh:mm:ss", CultureInfo.InvariantCulture);
 
-        //v.1
+        date = date.AddHours(6.5);
 
-        Console.WriteLine(myDate.ToString("dd.MM.yyyy hh:mm:ss dddd", CultureInfo.CreateSpecificCulture("bg-BG")));
-        
-        //v.2
+        // v.1
+        Console.WriteLine(date.ToString("dd.MM.yyyy hh:mm:ss dddd", CultureInfo.CreateSpecificCulture("bg-BG")));
 
-        Console.WriteLine("{0:dd.MM.yyyy hh:mm:ss} {1}", myDate, new CultureInfo("bg-BG").DateTimeFormat.GetDayName(myDate.DayOfWeek));
+        // v.2
+        //Console.WriteLine("{0:dd.MM.yyyy hh:mm:ss} {1}",
+        //    date, new CultureInfo("bg-BG").DateTimeFormat.GetDayName(date.DayOfWeek));
     }
 }

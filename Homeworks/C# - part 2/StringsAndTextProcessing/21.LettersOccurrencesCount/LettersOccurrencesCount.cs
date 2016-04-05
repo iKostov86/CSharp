@@ -4,31 +4,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class LettersOccurrencesCount
+public class LettersOccurrencesCount
 {
-    static void Main()
+    internal static void Main()
     {
         string input = "Baba mi e strasha jena, mnogo golqma e sha znaesh!";
-        Dictionary<char, int> myDict = new Dictionary<char, int>();
+        var dict = CountLetters(input);
 
-        for (int i = 0; i < input.Length; i++)
+        dict.OrderBy(x => x.Key);
+        PrintLettersOccurrences(dict);
+    }
+
+    public static Dictionary<char, int> CountLetters(string input)
+    {
+        Dictionary<char, int> dict = new Dictionary<char, int>();
+
+        for (int i = 0, len = input.Length; i < len; i++)
         {
             if (char.IsLetter(input[i]))
             {
-                if (myDict.Keys.Contains(input[i]))
+                if (dict.Keys.Contains(input[i]))
                 {
-                    myDict[input[i]]++;
+                    dict[input[i]]++;
                 }
                 else
                 {
-                    myDict[input[i]] = 1;
+                    dict[input[i]] = 1;
                 }
             }
         }
 
-        myDict.OrderBy(x => x.Key);
+        return dict;
+    }
 
-        foreach (var item in myDict)
+    public static void PrintLettersOccurrences(Dictionary<char, int> dict)
+    {
+        foreach (var item in dict)
         {
             Console.WriteLine("{0} -> {1}", item.Key, item.Value);
         }

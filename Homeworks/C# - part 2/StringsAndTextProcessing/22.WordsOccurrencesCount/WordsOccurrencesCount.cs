@@ -1,38 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
-class WordsOccurrencesCount
+public class WordsOccurrencesCount
 {
-    static void Main()
+    //public static readonly Dictionary<string, int> example = new Dictionary<string, int> { { "one", 1}, { "two", 2 }, { "three", 3 } };
+
+    internal static void Main()
     {
-        string input = "Baba mi e strasha jena, mnogo golqma e sha znaesh!";
-        var separateWords = input.Split(new char[] { ' ' }).Select(x => x.TrimEnd(new char[] { ',', '.', '!', '?', ';', ':' }).ToLower());
+        System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
 
-        Dictionary<string, int> myDict = new Dictionary<string, int>();
+        string input = "Baba a mi e strasha jena, mnogo mnogo golqma e sha znaesh!";
 
-        foreach (var word in separateWords)
+        // v.1
+        //var separatedWords = input
+        //    .Split(new char[] { ' ' })
+        //    .Select(x => x.TrimEnd(new char[] { ',', '.', '!', '?', ';', ':' }));
+        //var dict = CountWords(separatedWords);
+
+        //PrintWordsOccurrences(dict);
+
+        // v.2
+        string regex = "(?i)[A-Z]+";
+        var separatedWords = Regex.Matches(input, regex).Cast<Match>();
+        var dict = CountWords(separatedWords);
+
+        PrintWordsOccurrences(dict);
+    }
+
+    public static SortedDictionary<string, int> CountWords<T>(IEnumerable<T> separatedWords)
+    {
+        var dict = new SortedDictionary<string, int>();
+
+        foreach (var word in separatedWords)
         {
-            if (myDict.Keys.Contains(word))
+            var key = word.ToString();
+
+            if (dict.Keys.Contains(key))
             {
-                myDict[word]++;
+                dict[key]++;
             }
             else
             {
-                myDict[word] = 1;
+                dict[key] = 1;
             }
         }
 
-        myDict.OrderBy(x => x.Key);
+        return dict;
+    }
 
-        foreach (var item in myDict)
+    public static void PrintWordsOccurrences<T>(SortedDictionary<T, int> dict)
+    {
+        foreach (var item in dict)
         {
             //Console.WriteLine(item.Key + "->".PadLeft(10 - item.Key.Length) + item.Value.ToString().PadLeft(5));
-            Console.WriteLine(item.Value + item.Key.ToString().PadLeft(10));
-           // Console.WriteLine("{0} -> {1}", item.Key, item.Value);
+            //Console.WriteLine(item.Value + item.Key.ToString().PadRight(10));
+            Console.WriteLine("{0} -> {1}", item.Key, item.Value);
         }
-        Console.WriteLine();
     }
 }

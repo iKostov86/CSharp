@@ -1,58 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Threading;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
+using System.Globalization;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-class DateExtractor
+public class DateExtractor
 {
-    static void Main()
+    internal static void Main()
     {
         Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 
         string input = "Today is 17.12.2034. I am a student since 1.9.2006. OK.";
         string[] formats = new string[] { "dd.MM.yyyy", "d.M.yyyy"};
+        var cultureProvider = new CultureInfo("en-CA");
 
-        //var extractDates = input.Split(new char[] { ' ' }).Select(x => x.TrimEnd(new char[] { ',', '.', '!', '?', ';', ':' }));
+        // v.1
+        var extractedDates = input
+            .Split(new char[] { ' ' })
+            .Select(x => x.TrimEnd(new char[] { '.', ',', ';', ':', '!', '?' }));
 
-        //foreach (var date in extractDates)
-        //{
-        //    try
-        //    {
-        //        DateTime myDate = DateTime.ParseExact(date, formats, CultureInfo.InvariantCulture, DateTimeStyles.None);
-        //        Console.WriteLine(myDate.ToString(CultureInfo.GetCultureInfo("en-CA")));
-        //    }
-        //    catch (Exception)
-        //    {
-                
-        //    }
-        //}
-        //Console.WriteLine();
+        PrintOnlyDates(extractedDates, formats, cultureProvider);
 
-        string regex = @"((0?[1-9]|[12][0-9]|3[01])\.(0?[1-9]|1[0-2])\.(19[0-9][0-9]|20[0-9][0-9]))";
+        // v.2
+        string regex = @"\b(0?[1-9]|[1-2][0-9]|3[0-1])\.(0?[1-9]|1[0-2])\.(19[0-9][0-9]|20[0-9][0-9])\b";
 
-        MatchCollection matches = Regex.Matches(input, regex, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+        var matches = Regex
+            .Matches(input, regex, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace)
+            .Cast<Match>();
 
-        foreach (Match match in matches)
+        PrintOnlyDates(matches, formats, cultureProvider);
+    }
+
+    public static void PrintOnlyDates<T>(IEnumerable<T> dates, string[] formats, CultureInfo cultureProvider)
+    {
+        foreach (var date in dates)
         {
-            try
-            {
-                DateTime myDate = DateTime.ParseExact(match.Value, formats, CultureInfo.InvariantCulture, DateTimeStyles.None);
+            DateTime exactDate;
 
-                Console.WriteLine(myDate.ToString(CultureInfo.GetCultureInfo("en-US")));
-                Console.WriteLine(myDate.ToString(CultureInfo.GetCultureInfo("en-CA")));
-                Console.WriteLine(myDate.ToString(CultureInfo.GetCultureInfo("fr-FR")));
-                Console.WriteLine(myDate.ToString(CultureInfo.GetCultureInfo("bg-BG")));
-            }
-            catch (Exception)
+            bool success = DateTime.TryParseExact(date.ToString(), formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out exactDate);
+
+            if (success)
             {
-                
+                Console.WriteLine(exactDate.ToString(cultureProvider));
             }
-            Console.WriteLine();
         }
-        Console.WriteLine();
     }
 }

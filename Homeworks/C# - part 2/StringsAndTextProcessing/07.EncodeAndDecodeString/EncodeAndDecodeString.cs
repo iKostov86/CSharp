@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class EncodeAndDecodeString
+public class EncodeAndDecodeString
 {
-    static void Main()
+    internal static void Main()
     {
         char[] input = "bira i more".ToArray();
         char[] keyCipher = "123".ToArray();
@@ -18,14 +18,14 @@ class EncodeAndDecodeString
         Console.WriteLine(output);
     }
 
-    static char[] EncodingDecodingFunc(char[] input, char[] keyCipher)
+    public static char[] EncodingDecodingFunc(char[] input, char[] keyCipher)
     {
-        for (int i = 0; i < input.Length; i++)
+        int keyCipherLen = keyCipher.Length;
+        for (int i = 0, len = input.Length; i < len; i++)
         {
-            input[i] ^= keyCipher[i % keyCipher.Length];
+            input[i] ^= keyCipher[i % keyCipherLen];
         }
 
         return input;
     }
 }
-

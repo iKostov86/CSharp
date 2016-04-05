@@ -13,22 +13,22 @@ class ForbiddenWords
                     + "compiler today. It is based on .NET Framework 4.0 " + Environment.NewLine
                     + "and is implemented as a dynamic language in CLR.";
 
-        string forbiddenWords = "PHP, CLR, Microsoft ";
+        string forbiddenWordsAsStr = "PHP, CLR, Microsoft";
+        string[] forbiddenWords = forbiddenWordsAsStr.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-        //v.1
-
-        //string[] separateWords = forbiddenWords.Split(new[] { ',', ' '}, StringSplitOptions.RemoveEmptyEntries);
-
-        //foreach (var word in separateWords)
+        // v.1
+        //foreach (var word in forbiddenWords)
         //{
-        //    text = text.Replace(word, new string('*', word.Length));
+        //    text = text.Replace(forbiddenWordsAsStr, new string('*', forbiddenWords.Length));
         //}
 
         //Console.WriteLine(text);
 
-        //v.2
+        // v.2
+        //string regex = @"(?<ForbiddenWords>\b(PHP|CLR|Microsoft)\b)";
 
-        string regex = @"(?<ForbiddenWords>\b(PHP|CLR|Microsoft)\b)";
+        var forbiddenWordsAsRegex = string.Join("|", forbiddenWords);
+        string regex = @"(?<ForbiddenWords>\b(" + forbiddenWordsAsRegex + @")\b)";
 
         text = Regex.Replace(text, regex, match => new string('*', match.Groups["ForbiddenWords"].Length));
 

@@ -5,44 +5,43 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-class SubstringCount
+public class SubstringCount
 {
-    static void Main()
+    internal static void Main()
     {
         string input = @"We are living in an yellow submarine.
                         We don't have anything else. 
                         Inside the submarine is very tight. 
                         So we are drinking all the day. 
                         We will move out of it in 5 days.";
+        string word = "in";
 
-        //v.1
+        // v.1
+        //int count1 = input.ToLower().Split(new[] { word }, StringSplitOptions.RemoveEmptyEntries).Length - 1;
 
-        //int count = input.ToLower().Split(new[] { "in" }, StringSplitOptions.RemoveEmptyEntries).Length - 1;
+        //Console.WriteLine(count1);
 
-        //Console.WriteLine(count);
-
-        //v.2
-
+        // v.2
         //int index = 0;
         //int count2 = 0;
 
         //do
         //{
-        //    index = input.ToLower().IndexOf("in", index) + 1;
+        //    index = input.ToLower().IndexOf(word, index) + 1;
         //    count2++;
 
         //} while (index != 0);
 
         //Console.WriteLine(count2 - 1);
 
-        //v.3
-
-        //string substring = "in";
+        // v.3
         //int count3 = 0;
+        //int inputLen = input.Length;
+        //int wordLen = word.Length;
 
-        //for (int i = 0; i < input.Length - substring.Length; i++)
+        //for (int i = 0, len = inputLen - wordLen; i < len; i++)
         //{
-        //    if (input.Substring(i, substring.Length).ToLower() == substring)
+        //    if (input.Substring(i, wordLen).ToLower() == word)
         //    {
         //        count3++;
         //    }
@@ -51,13 +50,14 @@ class SubstringCount
         //Console.WriteLine(count3);
 
         //v.4
+        MatchCollection matches = Regex.Matches(input, "(?i)in", RegexOptions.IgnoreCase); // (?i) -> case-insensitive (by default), (?-i) -> case-sensitive
+        int count4 = matches.Count;
 
-        int count4 = Regex.Matches(input, "(?i)in", RegexOptions.IgnoreCase).Count;
         Console.WriteLine(count4);
 
         //v.5
+        int count5 = input.Select((ch, i) => input.ToLower().Substring(i)).Count(sub => sub.StartsWith(word));
 
-        int count5 = input.Select((c, i) => input.ToLower().Substring(i)).Count(sub => sub.StartsWith("in"));
         Console.WriteLine(count5);
     }
 }

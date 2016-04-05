@@ -4,21 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class PrintListInAlphabeticalOrder
+public class PrintListInAlphabeticalOrder
 {
-    static void Main()
+    internal static void Main()
     {
         string input = "panica ala nica ovalna bala";
-        string[] output = input.Split(new [] {' '}, StringSplitOptions.RemoveEmptyEntries);
+        string[] words = input.Split(new [] {' '}, StringSplitOptions.RemoveEmptyEntries);
 
-        Array.Sort(output);
+        Array.Sort(words);
+        PrintWords(words);
+    }
 
-        foreach (var item in output)
+    public static void PrintWords(string[] words)
+    {
+        for (int i = 0, len = words.Length; i < len; i++)
         {
-            Console.Write(item + " ");
+            Console.Write("{0} ", words[i]);
         }
 
-        Console.WriteLine();
         Console.WriteLine();
     }
 }

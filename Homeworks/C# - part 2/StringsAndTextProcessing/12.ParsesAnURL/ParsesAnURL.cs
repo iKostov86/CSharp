@@ -5,105 +5,90 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-class ParsesAnURL
+public class ParsesAnURL
 {
-    static void Main()
+    internal static void Main()
     {
-        string input = "http://www.devbg.org/forum/index.php";
+        //string input = "http://www.devbg.org/forum/index.php";
+        string input = "http://telerikacademy.com/Courses/Courses/Details/212";
         string protocol = string.Empty;
         string server = string.Empty;
-        string resourse = string.Empty;
+        string resource = string.Empty;
 
-        //v.1
+        // v.1
+        //StringBuilder sb = new StringBuilder();
+        //sb.Append('"');
 
-        StringBuilder myBuilder1 = new StringBuilder();
-        myBuilder1.Append('"');
+        //for (int i = 0, len = input.Length; i < len; i++)
+        //{
+        //    if (input[i] == ':' && protocol == string.Empty)
+        //    {
+        //        protocol = sb.Append('"').ToString();
+        //        sb.Clear().Append('"');
+        //    }
+        //    else if (input[i] == '/')
+        //    {
+        //        if (input[i + 1] != '/' && input[i - 1] != '/')
+        //        {
+        //            if (server == "")
+        //            {
+        //                server = sb.Append('"').ToString();
+        //                sb.Clear().Append('"');
+        //            }
 
-        for (int i = 0; i < input.Length; i++)
-        {
-            if (input[i] == ':' && protocol == "")
-            {
-                protocol = myBuilder1.Append('"').ToString();
-                myBuilder1.Clear().Append('"');
-            }
-            else if (input[i] == '/')
-            {
-                if (input[i + 1] != '/' && input[i - 1] != '/')
-                {
-                    if (server == "")
-                    {
-                        server = myBuilder1.Append('"').ToString();
-                        myBuilder1.Clear().Append('"');
-                    }
+        //            sb.Append(input[i]);
+        //        }
+        //    }
+        //    else if (i == input.Length - 1)
+        //    {
+        //        sb.Append(input[i]);
+        //        resource = sb.Append('"').ToString();
+        //        sb.Clear().Append('"');
+        //    }
+        //    else
+        //    {
+        //        sb.Append(input[i]);
+        //    }
+        //}
 
-                    myBuilder1.Append(input[i]);
-                }
-            }
-            else if (i == input.Length - 1)
-            {
-                myBuilder1.Append(input[i]);
-                resourse = myBuilder1.Append('"').ToString();
-                myBuilder1.Clear().Append('"');
-            }
-            else
-            {
-                myBuilder1.Append(input[i]);
-            }
-        }
+        //Console.WriteLine(protocol);
+        //Console.WriteLine(server);
+        //Console.WriteLine(resource);
 
-        Console.WriteLine(protocol);
-        Console.WriteLine(server);
-        Console.WriteLine(resourse);
-        Console.WriteLine();
+        // v.2
+        //int protocolEndIndex = input.IndexOf(':');
+        //int serverStartIndex = input.IndexOf("//", protocolEndIndex) + 2;
+        //int resourceStartIndex = input.IndexOf('/', serverStartIndex);
 
+        //protocol = input.Substring(0, protocolEndIndex);
+        //server = input.Substring(serverStartIndex, resourceStartIndex - serverStartIndex);
+        //resource = input.Substring(resourceStartIndex, input.Length - resourceStartIndex);
 
-        //v.2
+        //Console.WriteLine(@"""{0}""", protocol);
+        //Console.WriteLine(@"""{0}""", server);
+        //Console.WriteLine(@"""{0}""", resource);
 
-        string[] output = input.Split(new[] { ':', '/', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        // v.3
+        //Uri uri = new Uri(input);
 
-        StringBuilder myBuilder2 = new StringBuilder();
-        myBuilder2.Append('"');
+        //Console.WriteLine(@"""{0}""", uri.Scheme);
+        //Console.WriteLine(@"""{0}""", uri.Host);
+        //Console.WriteLine(@"""{0}""", uri.AbsolutePath);
 
-        for (int i = 2; i < output.Length; i++)
-        {
-            myBuilder2.Append('/');
-            myBuilder2.Append(output[i]);
-        }
+        // v.4 string 
+        //string regex = @"(?<protocol>(\S)+?)://(?<server>[^/]+?)(?<resource>/(\S)+)";
 
-        myBuilder2.Append('"');
+        //Match match = Regex.Match(input, regex, RegexOptions.IgnoreCase);
 
-        Console.WriteLine(@"""{0}""", output[0]);
-        Console.WriteLine(@"""{0}""", output[1]);
-        Console.WriteLine(myBuilder2);
-        Console.WriteLine();
+        //Console.WriteLine(@"""{0}""", match.Groups["protocol"].Value);
+        //Console.WriteLine(@"""{0}""", match.Groups["server"].Value);
+        //Console.WriteLine(@"""{0}""", match.Groups["resource"].Value);
 
-        //v.3
-
-        Uri myUri = new Uri("http://www.devbg.org/forum/index.php");
-
-        Console.WriteLine(@"""{0}""", myUri.Scheme);
-        Console.WriteLine(@"""{0}""", myUri.Host);
-        Console.WriteLine(@"""{0}""", myUri.AbsolutePath);
-        Console.WriteLine();
-
-        //v.4 string 
-
-        string regex = @"(?<protocol>(.)+?)://(?<server>[^/]+?)(?<resourse>/(.)+)";
-
-        Match match = Regex.Match(input, regex, RegexOptions.IgnoreCase);
-
-        Console.WriteLine(@"""{0}""", match.Groups["protocol"].Value);
-        Console.WriteLine(@"""{0}""", match.Groups["server"].Value); 
-        Console.WriteLine(@"""{0}""", match.Groups["resourse"].Value);
-        Console.WriteLine();
-
-        //v.5
-
-        var fragments = Regex.Match(input, "(.*)://(.*?)(/.*)").Groups;
+        // v.5
+        var fragments = Regex.Match(input, "(\\S*?)://(\\S*?)(/\\S*)").Groups;
 
         Console.WriteLine(@"""{0}""", fragments[1]);
         Console.WriteLine(@"""{0}""", fragments[2]);
         Console.WriteLine(@"""{0}""", fragments[3]);
-        Console.WriteLine();
     }
 }

@@ -1,25 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Globalization;
 
-class NumberOfDaysBetweenDates
+public class NumberOfDaysBetweenDates
 {
-    static void Main()
+    internal static void Main()
     {
-        Console.WriteLine(new string('-', 31));
-        string firstStr = "27.02.2006";
-        string secondStr = "03.03.2006";
-        DateTime firstDate = DateTime.ParseExact(firstStr, "d.M.yyyy", CultureInfo.InvariantCulture);
+        string separateLine = new string('-', 31);
+        string firstStr = "01.01.2007";
+        string secondStr = "27.12.2006";
+        
+        DateTime firstDate = DateTime.ParseExact(firstStr, "d.M.yyyy", DateTimeFormatInfo.InvariantInfo);
         DateTime secondDate;
-        DateTime.TryParseExact(secondStr, "d.M.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out secondDate);
+        DateTime.TryParseExact(secondStr, "d.M.yyyy", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out secondDate);
 
         var result = Math.Abs(firstDate.Subtract(secondDate).TotalDays);
 
+        Console.WriteLine(separateLine);
         Console.WriteLine(result);
-        Console.WriteLine(new string('-', 31));
-        Console.WriteLine();
+        Console.WriteLine(separateLine);
     }
 }

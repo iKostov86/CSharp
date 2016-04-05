@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Globalization;
 
-class HTMLParser
+public class HTMLParser
 {
-    static void Main()
+    internal static void Main()
     {
-        Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+        System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
 
         string input = "input.txt";
         string output = string.Empty;

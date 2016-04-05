@@ -8,20 +8,32 @@ class FormatNumber
 {
     static void Main()
     {
+        int alignment = 15;
         int number = int.Parse(Console.ReadLine());
 
-        //v.1
+        // v.1
+        Console.WriteLine("{0, 15:D}", number);
+        Console.WriteLine("{0, 15:X}", number);
+        Console.WriteLine("{0, 15:P}", number / 100.0);
+        Console.WriteLine("{0, 15:E}", number);
 
-        Console.WriteLine("{0, 15:D4}", number);
-        Console.WriteLine("{0, 15:X4}", number);
-        Console.WriteLine("{0, 15:P4}", number / 100.0);
-        Console.WriteLine("{0, 15:E4}", number);
+        // v.2
+        Console.WriteLine("{0}", number.ToString("D").PadLeft(15, '.'));
+        Console.WriteLine("{0}", number.ToString("X").PadLeft(15, '.'));
+        Console.WriteLine("{0}", (number / 100.0).ToString("P").PadLeft(15, '.'));
+        Console.WriteLine("{0}", number.ToString("E").PadLeft(15, '.'));
 
-        //v.2
+        // v.3
+        string decimalAsStr = number.ToString("D");
+        Console.WriteLine(new string('.', alignment - decimalAsStr.Length) + decimalAsStr);
 
-        Console.WriteLine("{0}", number.ToString("D4").PadLeft(15, '.'));
-        Console.WriteLine("{0}", number.ToString("X4").PadLeft(15, '.'));
-        Console.WriteLine("{0}", (number / 100.0).ToString("P4").PadLeft(15, '.'));
-        Console.WriteLine("{0}", number.ToString("E4").PadLeft(15, '.'));
+        string hexadecimalAsStr = number.ToString("X");
+        Console.WriteLine(new string('.', alignment - hexadecimalAsStr.Length) + hexadecimalAsStr);
+
+        string percentAsStr = (number / 100.0).ToString("P");
+        Console.WriteLine(new string('.', alignment - percentAsStr.Length) + percentAsStr);
+
+        string scientificAsStr = number.ToString("E");
+        Console.WriteLine(new string('.', alignment - scientificAsStr.Length) + scientificAsStr);
     }
 }

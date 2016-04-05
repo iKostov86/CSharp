@@ -5,28 +5,31 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-class ExtractEmail
+public class ExtractEmail
 {
-    static void Main()
+    internal static void Main()
     {
         string input = "Please contact us by phone (+359 222 222 222) or by email at example@abv.bg or at baj.ivan@yahoo.co.uk. This is not email: test@test. This also: @telerik.com. Neither this: a@a.b.";
-        string regex = "\b[a-z0-9._%+-]+@([a-z0-9-]/.)+[a-z]{2,4}\b";
+
+        // v.1
+        string regex = @"\b[a-zA-Z0-9.-_]+@[a-zA-Z0-9.]+\.[a-z]{2,4}";
 
         MatchCollection matches = Regex.Matches(input, regex, RegexOptions.IgnoreCase);
+        PrintEmails(matches.Cast<Match>());
 
-        foreach (Match match in matches)
+        // v.2
+        var separateEmails = input
+            .Split(new[] { " ", ". ", ".\r", "," }, StringSplitOptions.RemoveEmptyEntries)
+            .Where(x => x.Contains('@') && x.Contains('.') && !x.StartsWith("@") && !x.StartsWith(".") && !x.EndsWith("@") && !x.EndsWith("."));
+
+        PrintEmails(separateEmails);
+    }
+
+    public static void PrintEmails<T>(IEnumerable<T> emails)
+    {
+        foreach (var email in emails)
         {
-            Console.WriteLine(match.Value);
+            Console.WriteLine(email);
         }
-
-        //var separateEmails = input.Split(new[] { " ", ". ", ".\r", "," }, StringSplitOptions.RemoveEmptyEntries).Where(x => x.Contains('@')).Where(x => x.Contains("."));
-
-        //foreach (var email in separateEmails)
-        //{
-        //    if (!email.StartsWith("@") && !email.StartsWith(".") && !email.EndsWith("@") && !email.EndsWith("."))
-        //    {
-        //        Console.WriteLine(email);
-        //    }
-        //}
     }
 }

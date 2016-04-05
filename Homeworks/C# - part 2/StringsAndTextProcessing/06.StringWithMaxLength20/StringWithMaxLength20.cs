@@ -5,32 +5,29 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-class StringWithMaxLength20
+public class StringWithMaxLength20
 {
-    static void Main()
+    internal static void Main()
     {
-        string input = null;
+        string input = Console.ReadLine();
+        int maxLen = 20;
 
-        do
+        //do
+        //{
+        //    Console.WriteLine("Please enter a string, max length is 20 characters: ");
+        //    input = Console.ReadLine();
+
+        //} while (input.Length > 20);
+
+        if (input.Length < maxLen)
         {
-            Console.WriteLine("Please enter a string, max length is 20 characters: ");
-            input = Console.ReadLine();
-
-        } while (input.Length > 20);
-
-        //v.1
-
-        StringBuilder myBuilder = new StringBuilder(input);
-
-        while (myBuilder.Length < 20)
+            input = input.PadRight(maxLen, '*');
+        }
+        else
         {
-            myBuilder.Append("*");
+            input = input.Substring(0, maxLen);
         }
 
-        Console.WriteLine(myBuilder);
-
-        //v.2
-
-        //Console.WriteLine(input.PadRight(20, '*'));
+        Console.WriteLine(input);
     }
 }

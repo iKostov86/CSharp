@@ -1,23 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-class ExtractPalindromes
+public class ExtractPalindromes
 {
-    static void Main()
+    internal static void Main()
     {
-        string input = "ebasi mamata, ABBA ep lamal i e nqkakvo exe!";
-        var extraxtWords = input.Split(new[] { ' ', ',', ':', ';', '.', '!', '?' }, StringSplitOptions.RemoveEmptyEntries)
-                                    .Where(x => x.Length > 2);
+        System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
 
-        foreach (var word in extraxtWords)
+        string input = "What is this, ABBA is LAMAL and there is EXE!";
+
+        // v.1
+        var extraxtedWords = input
+            .Split(new[] { ' ', '.', ',', ';', ':', '!', '?' }, StringSplitOptions.RemoveEmptyEntries)
+            .Where(x => x.Length > 2);
+
+        foreach (var word in extraxtedWords)
         {
             bool isPalindrome = true;
 
-            for (int i = 0; i < word.Length / 2; i++)
+            for (int i = 0, len = word.Length / 2; i < len; i++)
             {
                 if (word[i] != word[word.Length - 1 - i])
                 {
@@ -26,11 +27,10 @@ class ExtractPalindromes
                 }
             }
 
-            if (isPalindrome == true)
+            if (isPalindrome)
             {
                 Console.WriteLine(word);
             }
         }
-        Console.WriteLine();
     }
 }

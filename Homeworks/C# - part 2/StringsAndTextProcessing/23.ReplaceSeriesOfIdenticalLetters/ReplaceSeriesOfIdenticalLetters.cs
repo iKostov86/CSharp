@@ -5,32 +5,39 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-class ReplaceSeriesOfIdenticalLetters
+public class ReplaceSeriesOfIdenticalLetters
 {
-    static void Main()
+    internal static void Main()
     {
-        string input = "aaaabbbcddddddeeffffffff gggggfffhhhhh";
-        //HashSet<char> mySet = new HashSet<char>();
+        string input = "aaaabbbcddddddeeffffffff               gggggfffhhhhh hhhhhf";
 
-        //for (int i = 0; i < input.Length; i++)
+        Console.WriteLine(input);
+
+        // v.1
+        //var symbol = input[0];
+        //StringBuilder sb = new StringBuilder(input);
+
+        //for (int i = 1; i < sb.Length; i++)
         //{
-        //    if (char.IsLetter(input[i]))
+        //    if (sb[i] == symbol)
         //    {
-        //        mySet.Add(input[i]);
+        //        sb.Remove(i, 1);
+        //        i--;
+        //    }
+        //    else
+        //    {
+        //        symbol = sb[i];
         //    }
         //}
 
-        //foreach (char letter in mySet)
-        //{
-        //    Console.Write(letter);
-        //}
+        //Console.WriteLine(sb.ToString());
 
-        string regex = @"(?<letter>[A-Z])\1+";
-
-        var output = Regex.Replace(input, regex, m => m.Groups["letter"].Value, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+        // v.2
+        //string regex = @"(?<symbol>.|\s)\1+";
+        string regex = @"(.|\s)\1+";
+        //var output = Regex.Replace(input, regex, m => m.Groups["symbol"].Value, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+        var output = Regex.Replace(input, regex, m => m.Groups[1].Value);
 
         Console.WriteLine(output);
-
-        Console.WriteLine();
     }
 }
