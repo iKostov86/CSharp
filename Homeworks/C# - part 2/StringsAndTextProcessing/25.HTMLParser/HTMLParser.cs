@@ -14,7 +14,7 @@ public class HTMLParser
         if (!File.Exists(input))
         {
             string createText = "<html>" + Environment.NewLine +
-                                "   <head><title>News</title></head>" + Environment.NewLine +
+                                "   <head><title>News</title></head>" + Environment.i +
                                 "   <body><p><a  href=\"http://academy.telerik.com\">Telerik" + Environment.NewLine +
                                 "       Academy</a>aims to provide free real-world practical" + Environment.NewLine +
                                 "       training for young people who want to turn into" + Environment.NewLine +
