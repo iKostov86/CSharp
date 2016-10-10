@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "15. Age", "15. Age\15. Age.csproj", "{DE827974-29A1-4A49-894E-6887C667E5CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "16. Long Sequence", "16. Long Sequence\16. Long Sequence.csproj", "{0673CAA8-086C-4F11-82CE-B3164927343F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE827974-29A1-4A49-894E-6887C667E5CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE827974-29A1-4A49-894E-6887C667E5CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE827974-29A1-4A49-894E-6887C667E5CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE827974-29A1-4A49-894E-6887C667E5CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0673CAA8-086C-4F11-82CE-B3164927343F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0673CAA8-086C-4F11-82CE-B3164927343F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0673CAA8-086C-4F11-82CE-B3164927343F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0673CAA8-086C-4F11-82CE-B3164927343F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

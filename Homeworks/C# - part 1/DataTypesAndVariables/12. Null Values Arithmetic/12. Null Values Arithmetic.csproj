@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4A447415-FA38-4566-A87D-16F927301EB7}</ProjectGuid>
+    <ProjectGuid>{82624F84-FE2E-452D-8578-4C9FC2E86046}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>_04.Unicode_Character</RootNamespace>
-    <AssemblyName>_04.Unicode_Character</AssemblyName>
+    <RootNamespace>_12.Null_Values_Arithmetic</RootNamespace>
+    <AssemblyName>_12.Null_Values_Arithmetic</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnicodeCharacter.cs" />
+    <Compile Include="NullValuesArithmetic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
